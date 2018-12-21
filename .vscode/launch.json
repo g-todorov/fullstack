@@ -1,0 +1,25 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Program",
+      "preLaunchTask": "tsc-watch",
+      "restart": true,
+      "program": "${workspaceFolder}\\node-server\\src\\server.ts",
+      "outFiles": [
+        "${workspaceFolder}\\node-server\\dist\\**\\*.js",
+      ],
+      "skipFiles": [
+        "<node_internals>\\**\\*.js",
+      ],
+      "sourceMaps": true,
+      "console": "integratedTerminal",
+      "cwd": "${workspaceRoot}\\node-server"
+    }
+  ]
+}
