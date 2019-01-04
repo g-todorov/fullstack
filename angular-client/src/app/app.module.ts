@@ -38,7 +38,7 @@ import { AlertDirective } from './directives/alert.directive';
     CookieService,
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: CookieInterceptor ,
+      useClass: CookieInterceptor,
       multi: true
     }
   ],

@@ -1,23 +1,28 @@
-<div class="login-wrapper">
-  <h2>Login</h2>
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <div>
-      <mat-form-field>
-        <input formControlName="email" matInput placeholder="Email">
-        <mat-error *ngIf="f.email.errors">{{getEmailErrorMessage()}}</mat-error>
-      </mat-form-field>
-    </div>
-    <div>
-      <mat-form-field>
-        <input formControlName="password" matInput placeholder="Password" [type]="hidePassword ? 'password' : 'text'">
-        <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-        <mat-error *ngIf="f.password.errors">You must enter a value</mat-error>
-      </mat-form-field>
-    </div>
-    <div class="form-group">
-      <button [disabled]="loading" color="primary" mat-button>Login</button>
-      <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-      <a [routerLink]="['/register']" class="btn btn-link" color="secondary" mat-button>Register</a>
-    </div>
-  </form>
+<div class="login-page">
+  <div class="login-form-wrapper">
+    <h2 class="login-headline mat-headline">Login</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="login-inputs">
+        <mat-form-field>
+          <input formControlName="email" matInput placeholder="Email">
+          <mat-error *ngIf="f.email.errors">{{getEmailErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="password" matInput placeholder="Password" [type]="hidePassword ? 'password' : 'text'">
+          <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          <mat-error *ngIf="f.password.errors">You must enter a value</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="login-actions">
+        <div class="left-side">
+          <button class="login-button" [disabled]="loading" color="primary" mat-stroked-button>Login</button>
+          <a class="register-button" [routerLink]="['/register']" class="btn btn-link" color="secondary"
+            mat-stroked-button>Register</a>
+        </div>
+        <div class="right-side">
+          <mat-spinner *ngIf="loading" [diameter]="30"></mat-spinner>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>

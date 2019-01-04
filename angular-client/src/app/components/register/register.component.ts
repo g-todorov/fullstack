@@ -15,6 +15,7 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   loading = false;
   submitted = false;
+  hidePassword = true;
 
   constructor(
     private apiService: ApiService,
@@ -24,13 +25,21 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
   // convenience getter for easy access to form fields
   get f() { return this.registerForm.controls; }
+
+  getEmailErrorMessage() {
+    const emailInput = this.registerForm.controls.email;
+
+    return emailInput.hasError('required') ? 'You must enter a value' :
+      emailInput.hasError('email') ? 'Not a valid email' :
+        '';
+  }
 
   onSubmit() {
     this.submitted = true;
