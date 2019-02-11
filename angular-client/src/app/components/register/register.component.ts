@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-import { ApiService } from '../../services/api.service';
+import { AuthService } from '../../services';
 import { AlertService } from '../../services/alert.service';
 
 @Component({
@@ -18,7 +18,7 @@ export class RegisterComponent implements OnInit {
   hidePassword = true;
 
   constructor(
-    private apiService: ApiService,
+    private authService: AuthService,
     private alertService: AlertService,
     private formBuilder: FormBuilder,
     private router: Router) { }
@@ -50,7 +50,7 @@ export class RegisterComponent implements OnInit {
     }
 
     this.loading = true;
-    this.apiService.register(this.f.email.value, this.f.password.value)
+    this.authService.register(this.f.email.value, this.f.password.value)
       .pipe(first())
       .subscribe(
         data => {

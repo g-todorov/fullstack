@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { UserService } from '../../services/user.service' 
+import { UserService } from '../../services';
 
 @Component({
   selector: 'app-home',
@@ -8,6 +8,7 @@ import { UserService } from '../../services/user.service'
   styleUrls: ['./home.component.styl']
 })
 export class HomeComponent implements OnInit {
+  currentUser: object = null;
 
   constructor(
     private userService: UserService
@@ -15,7 +16,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     const routerUrlSubscription = this.userService.user.subscribe(user => {
-      debugger
+      this.currentUser = user;
     });
   }
 

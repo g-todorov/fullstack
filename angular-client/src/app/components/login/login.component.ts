@@ -3,8 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-import { ApiService } from '../../services/api.service';
-import { AlertService } from '../../services/alert.service';
+import {AuthService, AlertService} from '../../services';
 
 @Component({
   templateUrl: 'login.component.html',
@@ -18,11 +17,12 @@ export class LoginComponent implements OnInit {
   hidePassword = true;
 
   constructor(
-    private apiService: ApiService,
+    private authService: AuthService,
     private alertService: AlertService,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private router: Router) { }
+    private router: Router,
+  ) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     });
 
     // reset login status
-    this.apiService.logout();
+    this.authService.logout();
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading = true;
-    this.apiService.login(this.f.email.value, this.f.password.value)
+    this.authService.login(this.f.email.value, this.f.password.value)
       .pipe(first())
       .subscribe(
         data => {

@@ -37,7 +37,7 @@ mongoose.connect(mongoUrl, { useMongoClient: true }).then(
   () => {
     /** ready to use. The `mongoose.connect()` promise resolves to undefined. */
     if (process.env.NODE_ENV !== 'production') {
-      seedUsers()
+      seedUsers();
     }
 
   },
@@ -81,7 +81,7 @@ app.get('/logout', userController.logout);
 
 app.post('/question', questionController.postQuestion);
 
-app.post('/game', gameController.postGame)
+app.post('/game', gameController.postGame);
 
 app.get('/forgot', userController.getForgot);
 app.post('/forgot', userController.postForgot);

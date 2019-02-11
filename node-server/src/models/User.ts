@@ -31,7 +31,7 @@ export type AuthToken = {
   kind: string
 };
 
-export type Role = 'admin'|'moderator'|'user'
+export type Role = 'admin'|'moderator'|'user';
 
 const userSchema = new mongoose.Schema({
   email: { type: String, unique: true },

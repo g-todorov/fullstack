@@ -3,13 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 import { CookieService } from 'ngx-cookie-service';
-import { UserService } from './user.service'
-// import { LocalStorageService } from './local-storage.service'
+import { UserService } from '.';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ApiService {
+export class AuthService {
 
   constructor(
     private cookieService: CookieService,
@@ -26,7 +25,6 @@ export class ApiService {
           // localStorage.setItem('currentUser', JSON.stringify(user));
         }
 
-        
         return user;
       }));
   }
