@@ -24,7 +24,7 @@ import { AlertDirective } from './directives/alert.directive';
     RegisterComponent,
     HomeComponent,
     AlertComponent,
-    AlertDirective
+    AlertDirective,
   ],
   imports: [
     BrowserModule,
@@ -32,16 +32,16 @@ import { AlertDirective } from './directives/alert.directive';
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
   ],
   providers: [
     CookieService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: CookieInterceptor,
-      multi: true
+      multi: true,
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

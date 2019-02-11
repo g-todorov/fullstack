@@ -11,6 +11,8 @@ import expressValidator from 'express-validator';
 import bluebird from 'bluebird';
 import { MONGODB_URI, SESSION_SECRET } from './utils/secrets';
 
+import seedUsers from './utils/data-seed'
+
 const MongoStore = mongo(session);
 
 // Load environment variables from .env file, where API keys and passwords are configured
@@ -18,6 +20,8 @@ dotenv.config({ path: '.env.example' });
 
 // Controllers (route handlers)
 import * as userController from './controllers/user';
+import * as questionController from './controllers/question';
+import * as gameController from './controllers/game';
 
 // API keys and Passport configuration
 import * as passportConfig from './config/passport';
@@ -30,7 +34,13 @@ const mongoUrl = MONGODB_URI;
 
 (<any>mongoose).Promise = bluebird;
 mongoose.connect(mongoUrl, { useMongoClient: true }).then(
-  () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
+  () => {
+    /** ready to use. The `mongoose.connect()` promise resolves to undefined. */
+    if (process.env.NODE_ENV !== 'production') {
+      seedUsers()
+    }
+
+  },
 ).catch(err => {
   console.log('MongoDB connection error. Please make sure MongoDB is running. ' + err);
   // process.exit();
@@ -64,9 +74,15 @@ app.use(flash());
 
 /**
  * Primary app routes.
+ * TODO Abstract in a separate file/folder.
  */
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
+
+app.post('/question', questionController.postQuestion);
+
+app.post('/game', gameController.postGame)
+
 app.get('/forgot', userController.getForgot);
 app.post('/forgot', userController.postForgot);
 app.get('/reset/:token', userController.getReset);

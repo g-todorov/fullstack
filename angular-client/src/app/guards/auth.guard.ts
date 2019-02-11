@@ -12,7 +12,8 @@ export class AuthGuard implements CanActivate {
 
     constructor(
       private cookieService: CookieService,
-      private router: Router) { }
+      private router: Router
+    ) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         if (this.cookieService.check('node-server-token')) {

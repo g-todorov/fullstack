@@ -9,6 +9,7 @@ import { WriteError } from 'mongodb';
 import '../config/passport';
 const request = require('express-validator');
 
+import _ from 'lodash';
 
 /**
  * POST /login
@@ -39,7 +40,14 @@ export let postLogin = (req: Request, res: Response, next: NextFunction) => {
       if (err) { return next(err); }
       return res.status(201)
         .cookie('node-server-token', req.sessionID, { maxAge: 86400 })
-        .json({ message: 'User has been logged in.' });
+        .json({ 
+          message: 'User has been logged in.',
+          user: {
+            email: user.email,
+            role: user.role,
+            id: user.id,
+          },
+        });
     });
   })(req, res, next);
 };
