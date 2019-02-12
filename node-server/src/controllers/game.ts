@@ -19,7 +19,11 @@ export let postGame = (req: Request, res: Response, next: NextFunction) => {
 
   game.save((err) => {
     if (err) { return next(err); }
-    
+
     return res.status(201).json({ message: 'Game has been created.' });
   });
+};
+
+export let getGameByUserId = (req: Request, res: Response, next: NextFunction) => {
+  console.log('-----------------------------------------');
 };

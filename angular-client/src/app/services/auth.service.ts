@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 import { CookieService } from 'ngx-cookie-service';
-import { UserService } from '.';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'

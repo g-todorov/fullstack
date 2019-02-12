@@ -23,6 +23,6 @@ export class UserService {
 
   setUser(user: object) {
     this.localStorageService.setItem('user', user);
-    this.sourceUser.next(user); 
+    this.sourceUser.next(user);
   }
 }

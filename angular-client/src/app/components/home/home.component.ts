@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { UserService } from '../../services';
+import { UserService, GameService } from '../../services';
 
 @Component({
   selector: 'app-home',
@@ -11,12 +11,14 @@ export class HomeComponent implements OnInit {
   currentUser: object = null;
 
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private gameService: GameService,
   ) { }
 
   ngOnInit() {
     const routerUrlSubscription = this.userService.user.subscribe(user => {
       this.currentUser = user;
+      this.gameService.requestGames(user.id);
     });
   }
 
