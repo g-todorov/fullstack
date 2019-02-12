@@ -40,7 +40,7 @@ export let postLogin = (req: Request, res: Response, next: NextFunction) => {
       if (err) { return next(err); }
       return res.status(201)
         .cookie('node-server-token', req.sessionID, { maxAge: 86400 })
-        .json({ 
+        .json({
           message: 'User has been logged in.',
           user: {
             email: user.email,

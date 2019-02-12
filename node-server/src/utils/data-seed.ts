@@ -29,26 +29,27 @@ const seedUsers = () => {
     if (users.length !== 0) {
       const adminExists = users.some((item: UserModel) => {
         return item.email === ADMIN_EMAIL;
-      })
-      if (!adminExists) {saveUser(admin)}
+      });
+      if (!adminExists) { saveUser(admin); }
 
       const moderatorExists = users.some((item: UserModel) => {
         return item.email === MODERATOR_EMAIL;
-      })
-      if (!moderatorExists) {saveUser(moderator)}
+      });
+      if (!moderatorExists) { saveUser(moderator); }
 
       const userExists = users.some((item: UserModel) => {
         return item.email === USER_EMAIL;
       });
-      if (!userExists) {saveUser(user)}
+      if (!userExists) { saveUser(user); }
     }
-  })
-}
+  });
+};
 
 const saveUser = (user: Document) => {
-  user.save(err => {
-    if (err) {return;}
-  })
+  user.save((err, user) => {
+    // TODO: Add games for the user
+    if (err) { return; }
+  });
 };
 
 export default seedUsers;

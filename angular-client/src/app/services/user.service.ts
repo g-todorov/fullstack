@@ -8,7 +8,7 @@ import { LocalStorageService } from './local-storage.service'
 })
 export class UserService {
 
-  private sourceUser = new BehaviorSubject(this.localStorageService.getItem('user'))
+  private sourceUser = new BehaviorSubject(this.localStorageService.getItem('user'));
   user = this.sourceUser.asObservable();
 
   constructor(

@@ -3,6 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 import { IVerifyOptions } from 'passport-local';
 import { WriteError } from 'mongodb';
 import '../config/passport';
+// import User from 'src/models/User';
 const request = require('express-validator');
 
 
@@ -24,6 +25,13 @@ export let postGame = (req: Request, res: Response, next: NextFunction) => {
   });
 };
 
-export let getGameByUserId = (req: Request, res: Response, next: NextFunction) => {
-  console.log('-----------------------------------------');
+export let getGamesByUserId = (req: Request, res: Response, next: NextFunction) => {
+  Game.find({userCreatedBy: req.query.id}, (err, games: [GameModel]) => {
+
+    if (err) { return next(err); }
+
+    return res.status(201).json({
+      games: games
+    });
+  });
 };

@@ -11,7 +11,7 @@ import expressValidator from 'express-validator';
 import bluebird from 'bluebird';
 import { MONGODB_URI, SESSION_SECRET } from './utils/secrets';
 
-import seedUsers from './utils/data-seed'
+import seedUsers from './utils/data-seed';
 
 const MongoStore = mongo(session);
 
@@ -81,6 +81,7 @@ app.get('/logout', userController.logout);
 
 app.post('/question', questionController.postQuestion);
 
+app.get('/getGamesByUserId', gameController.getGamesByUserId);
 app.post('/game', gameController.postGame);
 
 app.get('/forgot', userController.getForgot);

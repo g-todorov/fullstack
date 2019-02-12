@@ -24,7 +24,7 @@ export let postQuestion = (req: Request, res: Response, next: NextFunction) => {
 
   question.save((err) => {
     if (err) { return next(err); }
-    
+
     return res.status(201).json({ message: 'Question has been created.' });
   });
 };
