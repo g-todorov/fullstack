@@ -19,7 +19,7 @@ export let postQuestion = (req: Request, res: Response, next: NextFunction) => {
   const question = new Question({
     name: req.body.name,
     type: req.body.type,
-    userCreatedBy: req.body.userCreatedBy,
+    createdBy: req.body.createdBy,
   });
 
   question.save((err) => {

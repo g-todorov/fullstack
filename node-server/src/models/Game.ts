@@ -3,13 +3,13 @@ import mongoose from 'mongoose';
 export type GameModel = mongoose.Document & {
   name: string,
   type: string,
-  userCreatedBy: string,
+  createdBy: string,
 };
 
 const gameSchema = new mongoose.Schema({
   name: String,
   type: String,
-  userCreatedBy: {
+  createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
  },

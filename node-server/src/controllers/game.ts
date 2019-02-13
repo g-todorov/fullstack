@@ -15,7 +15,7 @@ export let postGame = (req: Request, res: Response, next: NextFunction) => {
   const game = new Game({
     name: req.body.name,
     type: req.body.type,
-    userCreatedBy: req.body.userCreatedBy,
+    createdBy: req.body.createdBy,
   });
 
   game.save((err) => {
@@ -26,7 +26,7 @@ export let postGame = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export let getGamesByUserId = (req: Request, res: Response, next: NextFunction) => {
-  Game.find({userCreatedBy: req.query.id}, (err, games: [GameModel]) => {
+  Game.find({createdBy: req.query.id}, (err, games: [GameModel]) => {
 
     if (err) { return next(err); }
 
