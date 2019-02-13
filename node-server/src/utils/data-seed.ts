@@ -1,5 +1,6 @@
 import { default as User, UserModel } from '../models/User';
 import { default as Game, GameModel } from '../models/Game';
+import { default as Question, QuestionModel } from '../models/Question';
 import { Document } from 'mongoose';
 
 const ADMIN_EMAIL = 'admin@test.com';
@@ -47,10 +48,10 @@ const seedUsers = () => {
 const saveUser = (user: Document) => {
   user.save((err, savedUser: UserModel) => {
     if (err) { return; }
-    Game.find({}).then(games => {
-      if (savedUser.email === ADMIN_EMAIL && savedUser.role === 'admin') {
-        savaGame(savedUser.id); }
-    });
+
+    if (savedUser.email === ADMIN_EMAIL) {
+      savaGame(savedUser.id);
+    }
   });
 };
 
@@ -61,9 +62,26 @@ const savaGame = (userId: string) => {
     createdBy: userId,
   });
 
-  game.save((err, game) => {
+  game.save((err, savedGame: GameModel) => {
     if (err) { return; }
+
+    if (savedGame.name === 'adminGame') {
+      savaQuestion(savedGame.id, userId);
+    }
   });
+};
+
+const savaQuestion = (questionId: string, userId: string) => {
+  const question = new Question({
+    name: 'adminQuestion',
+    type: 'select',
+    options: ['a', 'b'],
+    answer: 'a',
+    game: questionId,
+    createdBy: userId,
+  });
+
+  question.save();
 };
 
 export default seedUsers;
