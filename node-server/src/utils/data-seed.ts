@@ -72,16 +72,51 @@ const savaGame = (userId: string) => {
 };
 
 const savaQuestion = (questionId: string, userId: string) => {
-  const question = new Question({
-    name: 'adminQuestion',
-    type: 'select',
-    options: ['a', 'b'],
-    answer: 'a',
+  const question1 = new Question({
+    name: 'adminQuestion1',
+    type: 'options',
+    options: [
+      {
+        label: 'label',
+        value: 'value1',
+      }
+    ,
+      {
+        label: 'label',
+        value: 'value2',
+      }
+    ],
+    answer: 'value2',
     game: questionId,
     createdBy: userId,
   });
 
-  question.save();
+  const question2 = new Question({
+    name: 'adminQuestion2',
+    type: 'multipleOptions',
+    options: [
+      {
+        label: 'label',
+        value: 'value1',
+      }
+    ,
+      {
+        label: 'label',
+        value: 'value2',
+      }
+      ,
+      {
+        label: 'label',
+        value: 'value3',
+      }
+    ],
+    answer: ['value2', 'value3'],
+    game: questionId,
+    createdBy: userId,
+  });
+
+  question1.save();
+  question2.save();
 };
 
 export default seedUsers;

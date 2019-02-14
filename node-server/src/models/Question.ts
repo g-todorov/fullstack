@@ -3,7 +3,10 @@ import mongoose from 'mongoose';
 export type QuestionModel = mongoose.Document & {
   name: string,
   type: string,
-  options: string[],
+  options: {
+    label: string,
+    value: string,
+  }
   answer: string,
   createdBy: string,
 };
@@ -11,7 +14,10 @@ export type QuestionModel = mongoose.Document & {
 const questionSchema = new mongoose.Schema({
   name: String,
   type: String,
-  options: [String],
+  options: [{
+    label: String,
+    value: String,
+  }],
   answer: String,
   game: {
     type: mongoose.Schema.Types.ObjectId,
