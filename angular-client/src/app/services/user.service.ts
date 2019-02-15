@@ -15,6 +15,10 @@ export class UserService {
     private localStorageService: LocalStorageService
   ) { }
 
+  public get currentUserValue() {
+    return this.sourceUser.value;
+}
+
   // isAuthenticated(flag: boolean) {
   //   if(this.localStorageService.getItem('isAthenticated')) {
   //     return true;
