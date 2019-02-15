@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Router, CanActivate, CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
+import { Router, CanActivate, CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 
+import { CookieService } from 'ngx-cookie-service';
 import { UserService } from '../services';
 
 @Injectable({
   providedIn: 'root'
 })
-
-// export class AuthGuard implements CanActivate, CanActivateChild {
-export class AuthGuard implements CanActivate {
+export class RoleGuard implements CanActivate, CanActivateChild {
 
   constructor(
     private cookieService: CookieService,
@@ -21,11 +19,15 @@ export class AuthGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const currentUser = this.userService.currentUserValue;
 
-    if (this.cookieService.check('node-server-token') && currentUser) {
+    if (currentUser && currentUser.role === route.data.expectedRole) {
       return true;
     }
 
-    this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
+    this.router.navigate(['/']);
     return false;
+  }
+
+  canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    return this.canActivate(route, state);
   }
 }

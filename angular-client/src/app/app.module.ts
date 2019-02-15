@@ -14,6 +14,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { AlertDirective } from './directives';
 
 import { MaterialModule } from './modules';
+import { AdminComponent } from './components/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { MaterialModule } from './modules';
     HomeComponent,
     LoginComponent,
     RegisterComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,
