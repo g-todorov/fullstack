@@ -12,6 +12,30 @@ const request = require('express-validator');
 import _ from 'lodash';
 
 /**
+ * GET /me
+ * Sign in using email and password.
+ */
+export let isAuthenticated = (req: Request, res: Response, next: NextFunction) => {
+  if (req.isAuthenticated()) {
+    return res.status(200)
+    .json({
+      message: 'User is authenticated.',
+      data: {
+        isAuthenticated: true,
+      },
+    });
+  } else {
+    return res.status(401)
+    .json({
+      message: 'User is not authenticated.',
+      data: {
+        isAuthenticated: false,
+      },
+    });
+  }
+};
+
+/**
  * POST /login
  * Sign in using email and password.
  */

@@ -78,6 +78,7 @@ app.use(flash());
  */
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
+app.get('/me', userController.isAuthenticated);
 
 app.post('/question', questionController.postQuestion);
 

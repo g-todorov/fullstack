@@ -9,22 +9,38 @@ const routes: Routes = [
     path: '',
     canActivate: [AuthGuard],
     component: HomeComponent,
-    children: [
-      {
-        path: '',
-        canActivateChild: [RoleGuard],
-        children: [
-          {
-            path: 'admin',
-            component: AdminComponent,
-            data: {
-              expectedRole: 'admin'
-            },
-          },
-        ]
-      }
-    ],
+    // children: [
+    //   {
+    //     path: '',
+    //     children: [
+    //       {
+    //         path: 'admin',
+    //         component: AdminComponent,
+    //       }
+    //     ]
+    //   }
+    // ]
+    // children: [
+    //   {
+    //     path: '',
+    //     // canActivateChild: [RoleGuard],
+    //     children: [
+    //       {
+    //         path: 'admin',
+    //         component: AdminComponent,
+    //         data: {
+    //           expectedRole: 'admin'
+    //         },
+    //       },
+    //     ]
+    //   }
+    // ],
   }
+// ,
+//   {
+//     path: 'admin',
+//     component: AdminComponent,
+//   }
 ,
   {
     path: 'login',

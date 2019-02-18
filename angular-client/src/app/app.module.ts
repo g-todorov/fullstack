@@ -6,7 +6,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent, LoginComponent, RegisterComponent, AlertComponent } from './components';
+import { HomeComponent, LoginComponent, RegisterComponent, AlertComponent, AdminComponent } from './components';
 
 import { CookieInterceptor } from './interceptors/cookie.interceptor';
 import { CookieService } from 'ngx-cookie-service';
@@ -14,7 +14,6 @@ import { CookieService } from 'ngx-cookie-service';
 import { AlertDirective } from './directives';
 
 import { MaterialModule } from './modules';
-import { AdminComponent } from './components/admin/admin.component';
 
 @NgModule({
   declarations: [
