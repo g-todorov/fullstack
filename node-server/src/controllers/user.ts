@@ -17,16 +17,21 @@ import _ from 'lodash';
  */
 export let isAuthenticated = (req: Request, res: Response, next: NextFunction) => {
   if (req.isAuthenticated()) {
-    return res.status(200)
-    .json({
+    const { email, id, role } = req.user;
+
+    return res.status(200).json({
       message: 'User is authenticated.',
       data: {
         isAuthenticated: true,
+        user: {
+          email: email,
+          id: id,
+          role: role,
+        },
       },
     });
   } else {
-    return res.status(401)
-    .json({
+    return res.status(401).json({
       message: 'User is not authenticated.',
       data: {
         isAuthenticated: false,
