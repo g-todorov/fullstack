@@ -25,9 +25,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       // this.gameService.requestGames(user.id);
     });
 
-    this.gameServiceSubscription = this.gameService.game.subscribe(games => {
-      this.currentUserGames = games;
-    });
   }
 
   ngOnDestroy() {

@@ -1,6 +1,8 @@
 <div>
-  Home Page
+  <div *ngIf="currentUser.role === 'admin'">
+    <app-admin></app-admin>
+  </div>
   <!-- <router-outlet></router-outlet> -->
-  <a [routerLink]="['']">home</a>
-  <a [routerLink]="['/admin']">admin</a>
+  <!-- <a [routerLink]="['']">home</a>
+  <a [routerLink]="['/admin']">admin</a> -->
 </div>

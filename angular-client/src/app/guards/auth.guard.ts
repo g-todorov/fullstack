@@ -23,8 +23,7 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     return this.http.get<any>('http://localhost:8080/me').pipe(
-      map(
-        response => {
+      map((response) => {
           if (response.data.isAuthenticated) {
             this.userService.setUser(response.data.user);
             return true;
