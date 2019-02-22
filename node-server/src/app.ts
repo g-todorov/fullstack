@@ -80,6 +80,7 @@ app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
 app.get('/me', userController.isAuthenticated);
 
+app.get('/getQuestionsByUserId', questionController.getQuestionsByUserId);
 app.post('/question', questionController.postQuestion);
 
 app.get('/getGamesByUserId', gameController.getGamesByUserId);

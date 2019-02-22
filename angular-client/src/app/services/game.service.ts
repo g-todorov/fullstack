@@ -19,8 +19,8 @@ export class GameService {
   ) { }
 
   requestGames(userId: string) {
-    return this.apiService.httpGetRequest('getGamesByUserId', { params: { id: userId } }).subscribe( games => {
-      this.sourceGame.next(games);
+    return this.apiService.httpGetRequest('getGamesByUserId', { params: { id: userId } }).subscribe(data => {
+      this.sourceGame.next(data.games);
     });
   }
 }

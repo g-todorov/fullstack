@@ -1,5 +1,12 @@
-<p>
-  <!-- <a [routerLink]="['']">home</a>
-  <a [routerLink]="['/admin']">admin</a> -->
-  admin works!
-</p>
+<div>
+  <div cdkDropList class="example-list" (cdkDropListDropped)="dropGame($event)">
+    <div class="example-box" *ngFor="let game of userGames" cdkDrag>{{game.name}}</div>
+  </div>
+</div>
+
+<div>
+  <div cdkDropList class="example-list" (cdkDropListDropped)="dropQuestion($event)">
+    <div class="example-box" *ngFor="let question of userQuestions" cdkDrag>{{question.name}}</div>
+  </div>
+</div>
+  

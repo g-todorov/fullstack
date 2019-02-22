@@ -30,3 +30,14 @@ export let postQuestion = (req: Request, res: Response, next: NextFunction) => {
     });
   });
 };
+
+export let getQuestionsByUserId = (req: Request, res: Response, next: NextFunction) => {
+  Question.find({createdBy: req.query.id}, (err, questions: [QuestionModel]) => {
+
+    if (err) { return next(err); }
+
+    return res.status(201).json({
+      questions: questions
+    });
+  });
+};
