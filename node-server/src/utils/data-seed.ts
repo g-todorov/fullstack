@@ -1,45 +1,27 @@
 import { default as User, UserModel } from '../models/User';
 import { default as Game, GameModel } from '../models/Game';
 import { default as Question, QuestionModel } from '../models/Question';
+import { default as Session, SessionModel } from '../models/Session';
 import { Document } from 'mongoose';
 
-const ADMIN_EMAIL = 'admin@test.com';
-const MODERATOR_EMAIL = 'moderator@test.com';
-const USER_EMAIL = 'user@test.com';
-const USE_PASS = '123qwe';
+import { admin, moderator, user } from './assets/mock-data';
+
+import * as constants from './constants/users';
 
 const seedUsers = () => {
-  const admin = new User({
-    email: ADMIN_EMAIL,
-    password: USE_PASS,
-    role: 'admin',
-  });
-
-  const moderator = new User({
-    email: MODERATOR_EMAIL,
-    password: USE_PASS,
-    role: 'moderator',
-  });
-
-  const user = new User({
-    email: USER_EMAIL,
-    password: USE_PASS,
-    role: 'user'
-  });
-
   User.find({}).then(users => {
     const adminExists = users.some((item: UserModel) => {
-      return item.email === ADMIN_EMAIL;
+      return item.email === constants.ADMIN_EMAIL;
     });
     if (!adminExists) { saveUser(admin); }
 
     const moderatorExists = users.some((item: UserModel) => {
-      return item.email === MODERATOR_EMAIL;
+      return item.email === constants.MODERATOR_EMAIL;
     });
     if (!moderatorExists) { saveUser(moderator); }
 
     const userExists = users.some((item: UserModel) => {
-      return item.email === USER_EMAIL;
+      return item.email === constants.USER_EMAIL;
     });
     if (!userExists) { saveUser(user); }
   });
@@ -49,13 +31,13 @@ const saveUser = (user: Document) => {
   user.save((err, savedUser: UserModel) => {
     if (err) { return; }
 
-    if (savedUser.email === ADMIN_EMAIL) {
-      savaGame(savedUser.id);
+    if (savedUser.email === constants.ADMIN_EMAIL) {
+      saveGame(savedUser.id);
     }
   });
 };
 
-const savaGame = (userId: string) => {
+const saveGame = (userId: string) => {
   const game = new Game({
     name: 'adminGame',
     type: 'picturePin',
@@ -66,12 +48,23 @@ const savaGame = (userId: string) => {
     if (err) { return; }
 
     if (savedGame.name === 'adminGame') {
-      savaQuestion(savedGame.id, userId);
+      saveSession(userId, [savedGame.id]);
+      saveQuestion(savedGame.id, userId);
     }
   });
 };
 
-const savaQuestion = (questionId: string, userId: string) => {
+const saveSession = (userId: string, games: string[]) => {
+  const session = new Session({
+    status: 'closed',
+    createdBy: userId,
+    games
+  });
+
+  session.save();
+};
+
+const saveQuestion = (questionId: string, userId: string) => {
   const question1 = new Question({
     name: 'adminQuestion1',
     type: 'options',

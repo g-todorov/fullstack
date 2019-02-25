@@ -15,6 +15,10 @@ import { AlertDirective } from './directives';
 
 import { MaterialModule } from './modules';
 
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+
+const config: SocketIoConfig = { url: 'http://localhost:8080/', options: {} };
+
 @NgModule({
   declarations: [
     AlertComponent,
@@ -32,6 +36,7 @@ import { MaterialModule } from './modules';
     AppRoutingModule,
     HttpClientModule,
     MaterialModule,
+    SocketIoModule.forRoot(config)
   ],
   providers: [
     CookieService,

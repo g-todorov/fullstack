@@ -8,8 +8,8 @@ const request = require('express-validator');
 
 
 /**
- * POST /question
- * Create question.
+ * POST /game
+ * Create game.
  */
 export let postGame = (req: Request, res: Response, next: NextFunction) => {
   const game = new Game({

@@ -22,6 +22,7 @@ dotenv.config({ path: '.env.example' });
 import * as userController from './controllers/user';
 import * as questionController from './controllers/question';
 import * as gameController from './controllers/game';
+import * as sessionController from './controllers/session';
 
 // API keys and Passport configuration
 import * as passportConfig from './config/passport';
@@ -46,6 +47,7 @@ mongoose.connect(mongoUrl, { useMongoClient: true }).then(
   // process.exit();
 });
 
+// connect to SocketIO
 
 // Express configuration
 app.set('port', process.env.PORT || 8080);
@@ -85,6 +87,8 @@ app.post('/question', questionController.postQuestion);
 
 app.get('/getGamesByUserId', gameController.getGamesByUserId);
 app.post('/game', gameController.postGame);
+
+app.post('/session', sessionController.postSession);
 
 app.get('/forgot', userController.getForgot);
 app.post('/forgot', userController.postForgot);
