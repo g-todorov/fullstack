@@ -24,3 +24,14 @@ export let postSession = (req: Request, res: Response, next: NextFunction) => {
     return res.status(201).json({ message: 'Session has been created.' });
   });
 };
+
+export let getSessionsByUserId = (req: Request, res: Response, next: NextFunction) => {
+  Session.find({createdBy: req.query.id}, (err, sessions: [SessionModel]) => {
+
+    if (err) { return next(err); }
+
+    return res.status(201).json({
+      sessions: sessions
+    });
+  });
+};

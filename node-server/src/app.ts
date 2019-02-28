@@ -89,6 +89,7 @@ app.get('/getGamesByUserId', gameController.getGamesByUserId);
 app.post('/game', gameController.postGame);
 
 app.post('/session', sessionController.postSession);
+app.get('/session', sessionController.getSessionsByUserId);
 
 app.get('/forgot', userController.getForgot);
 app.post('/forgot', userController.postForgot);

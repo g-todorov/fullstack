@@ -1,10 +1,12 @@
 {
-    "cSpell.words": [
-        "codelyzer",
-        "devkit",
-        "jasminewd",
-        "resave",
-        "styl",
-        "tslib"
-    ]
+  "cSpell.words": [
+    "codelyzer",
+    "devkit",
+    "injectable",
+    "jasminewd",
+    "resave",
+    "styl",
+    "tslib",
+    "validators"
+  ]
 }

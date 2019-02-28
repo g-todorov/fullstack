@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { UserService, GameService, QuestionService } from '../../services';
+import { UserService, GameService, QuestionService, SessionService } from '../../services';
 
 @Component({
   selector: 'app-admin',
@@ -13,14 +13,17 @@ export class AdminComponent implements OnInit {
   gameServiceSubscription: Subscription;
   userServiceSubscription: Subscription;
   questionServiceSubscription: Subscription;
+  sessionServiceSubscription: Subscription;
   userGames: [any];
   userQuestions: [any];
+  userSessions: [any];
   currentUser: any;
 
   constructor(
     private gameService: GameService,
     private userService: UserService,
     private questionService: QuestionService,
+    private sessionService: SessionService,
   ) { }
 
   ngOnInit() {
@@ -28,6 +31,7 @@ export class AdminComponent implements OnInit {
       this.currentUser = user;
       this.gameService.requestGames(user.id);
       this.questionService.requestQuestions(user.id);
+      this.sessionService.requestSessions(user.id);
     });
 
     this.gameServiceSubscription = this.gameService.game.subscribe(games => {
@@ -41,6 +45,12 @@ export class AdminComponent implements OnInit {
         this.userQuestions = questions;
       }
     });
+
+    this.sessionServiceSubscription = this.sessionService.session.subscribe(sessions => {
+      if (sessions) {
+        this.userSessions = sessions;
+      }
+    });
   }
 
   dropGame(event: CdkDragDrop<string[]>) {
@@ -48,6 +58,6 @@ export class AdminComponent implements OnInit {
   }
 
   dropQuestion(event: CdkDragDrop<string[]>) {
-  moveItemInArray(this.userQuestions, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.userQuestions, event.previousIndex, event.currentIndex);
   }
 }
