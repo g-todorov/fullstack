@@ -1,7 +1,9 @@
-import { default as Question, QuestionModel } from '../../models/Question';
+import { default as Question, QuestionModel, IQuestion } from '../../models/Question';
 import { default as User, UserModel } from '../../models/User';
+import { default as Game, GameModel, IGame } from '../../models/Game';
+import { default as Session, SessionModel, ISession } from '../../models/Session';
 
-import * as constants from '../constants/users';
+import * as constants from '../constants';
 
 export const admin = new User({
   email: constants.ADMIN_EMAIL,
@@ -20,3 +22,78 @@ export const user = new User({
   password: constants.USE_PASS,
   role: constants.USER_ROLE,
 });
+
+export const mockedUsers = [
+  admin,
+  moderator,
+  user,
+];
+
+const game: IGame = {
+  name: constants.ADMIN_GAME_NAME,
+  type: constants.ADMIN_GAME_TYPE,
+  createdBy: undefined,
+};
+
+export const mockedGames = [
+  game
+];
+
+const question1: IQuestion = {
+  name: 'adminQuestion1',
+  type: 'options',
+  options: [
+    {
+      label: 'label',
+      value: 'value1',
+    }
+  ,
+    {
+      label: 'label',
+      value: 'value2',
+    }
+  ],
+  answer: ['value2'],
+  game: undefined,
+  createdBy: undefined,
+};
+
+const question2: IQuestion = {
+  name: 'adminQuestion2',
+  type: 'multipleOptions',
+  options: [
+    {
+      label: 'label',
+      value: 'value1',
+    }
+  ,
+    {
+      label: 'label',
+      value: 'value2',
+    }
+    ,
+    {
+      label: 'label',
+      value: 'value3',
+    }
+  ],
+  answer: ['value2', 'value3'],
+  game: undefined,
+  createdBy: undefined,
+};
+
+export const mockedQuestions = [
+  question1,
+  question2,
+];
+
+const session: ISession = {
+  status: 'closed',
+  createdBy: undefined,
+  games: undefined,
+  users: undefined,
+};
+
+export const mockedSessions = [
+  session
+];

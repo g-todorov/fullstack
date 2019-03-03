@@ -11,7 +11,7 @@ import expressValidator from 'express-validator';
 import bluebird from 'bluebird';
 import { MONGODB_URI, SESSION_SECRET } from './utils/secrets';
 
-import seedUsers from './utils/data-seed';
+import seedDatabase from './utils/data-seed';
 
 const MongoStore = mongo(session);
 
@@ -38,7 +38,7 @@ mongoose.connect(mongoUrl, { useMongoClient: true }).then(
   () => {
     /** ready to use. The `mongoose.connect()` promise resolves to undefined. */
     if (process.env.NODE_ENV !== 'production') {
-      seedUsers();
+      seedDatabase();
     }
 
   },

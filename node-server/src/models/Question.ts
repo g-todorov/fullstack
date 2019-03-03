@@ -1,14 +1,21 @@
 import mongoose from 'mongoose';
 
+export type IQuestion = {
+  name: string,
+  type: string,
+  options: Array<any>;
+  answer: string[],
+  createdBy: string,
+  game: string,
+};
+
 export type QuestionModel = mongoose.Document & {
   name: string,
   type: string,
-  options: {
-    label: string,
-    value: string,
-  }
-  answer: string,
+  options: Array<any>;
+  answer: string[],
   createdBy: string,
+  game: string,
 };
 
 const questionSchema = new mongoose.Schema({
@@ -18,7 +25,7 @@ const questionSchema = new mongoose.Schema({
     label: String,
     value: String,
   }],
-  answer: String,
+  answer: [String],
   game: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Game',
