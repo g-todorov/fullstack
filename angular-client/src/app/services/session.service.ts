@@ -23,4 +23,10 @@ export class SessionService {
       this.sourceSession.next(data.sessions);
     });
   }
+
+  updateSessionStatus(sessionId: string, status: string) {
+    return this.apiService.httpPutRequest(`session/${sessionId}`, { status } ).subscribe(data => {
+      this.sourceSession.next(data.sessions);
+    });
+  }
 }

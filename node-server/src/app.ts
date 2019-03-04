@@ -47,8 +47,6 @@ mongoose.connect(mongoUrl, { useMongoClient: true }).then(
   // process.exit();
 });
 
-// connect to SocketIO
-
 // Express configuration
 app.set('port', process.env.PORT || 8080);
 app.use(bodyParser.json());
@@ -90,6 +88,7 @@ app.post('/game', gameController.postGame);
 
 app.post('/session', sessionController.postSession);
 app.get('/session', sessionController.getSessionsByUserId);
+app.put('/session/:sessionId', sessionController.updateSession);
 
 app.get('/forgot', userController.getForgot);
 app.post('/forgot', userController.postForgot);

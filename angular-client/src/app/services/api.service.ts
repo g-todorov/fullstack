@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -21,11 +21,25 @@ export class ApiService {
 
     // const requestOptions = params ?
     //   { params: new HttpParams().set('name', term) } : {};
-
     return this.http.get<any>(requestUrl, options)
       .pipe(
-        tap(data => console.log('loaded data')),
+        tap(data => console.log('get response loaded')),
         catchError(this.handleError('getItems', []))
+      );
+  }
+
+  httpPutRequest(endpointUrl: string, data: any): Observable<any> {
+    const requestUrl = this.apiUrl + endpointUrl;
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      })
+    };
+
+    return this.http.put<any>(requestUrl, data, httpOptions)
+      .pipe(
+        catchError(this.handleError('putItem', []))
       );
   }
 

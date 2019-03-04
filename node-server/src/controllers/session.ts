@@ -3,15 +3,16 @@ import { Request, Response, NextFunction } from 'express';
 import { IVerifyOptions } from 'passport-local';
 import { WriteError } from 'mongodb';
 import '../config/passport';
-// import User from 'src/models/User';
 const request = require('express-validator');
+
+import _ from 'lodash';
 
 
 /**
  * POST /session
  * Create session.
  */
-export let postSession = (req: Request, res: Response, next: NextFunction) => {
+export const postSession = (req: Request, res: Response, next: NextFunction) => {
   const session = new Session({
     status: req.body.status,
     createdBy: req.body.createdBy,
@@ -25,13 +26,24 @@ export let postSession = (req: Request, res: Response, next: NextFunction) => {
   });
 };
 
-export let getSessionsByUserId = (req: Request, res: Response, next: NextFunction) => {
+export const getSessionsByUserId = (req: Request, res: Response, next: NextFunction) => {
   Session.find({createdBy: req.query.id}, (err, sessions: [SessionModel]) => {
 
     if (err) { return next(err); }
 
     return res.status(201).json({
       sessions: sessions
+    });
+  });
+};
+
+export const updateSession = (req: Request, res: Response, next: NextFunction) => {
+  Session.findById(req.params.sessionId).exec((err, session: SessionModel) => {
+    session = _.extend(session, req.body);
+    session.save((err: any) => {
+      if (err) { return next(err); }
+
+      return res.status(201).json({ message: 'Session has been updated.' });
     });
   });
 };

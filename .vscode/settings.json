@@ -4,6 +4,7 @@
     "devkit",
     "injectable",
     "jasminewd",
+    "lodash",
     "resave",
     "styl",
     "tslib",

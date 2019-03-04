@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { IQuestion } from '../interfaces/index';
 
 export type IQuestion = {
   name: string,
@@ -9,14 +10,7 @@ export type IQuestion = {
   game: string,
 };
 
-export type QuestionModel = mongoose.Document & {
-  name: string,
-  type: string,
-  options: Array<any>;
-  answer: string[],
-  createdBy: string,
-  game: string,
-};
+export type QuestionModel = mongoose.Document & IQuestion;
 
 const questionSchema = new mongoose.Schema({
   name: String,

@@ -31,7 +31,7 @@ export let getGamesByUserId = (req: Request, res: Response, next: NextFunction) 
     if (err) { return next(err); }
 
     return res.status(201).json({
-      games: games
+      games
     });
   });
 };
