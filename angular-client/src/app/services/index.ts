@@ -5,3 +5,4 @@ export * from './user.service';
 export * from './game.service';
 export * from './question/question.service';
 export * from './session.service';
+export * from './utils/sockets.service';

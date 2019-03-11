@@ -54,7 +54,7 @@ export class AdminComponent implements OnInit {
   }
 
   onSessionStatusChange(event, session) {
-    let newSessionStatus;
+    let newSessionStatus: string;
 
     if (session.status === 'closed') {
       newSessionStatus = 'opened';

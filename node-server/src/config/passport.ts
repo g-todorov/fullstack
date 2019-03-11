@@ -124,7 +124,9 @@ export let isAuthenticated = (req: Request, res: Response, next: NextFunction) =
   if (req.isAuthenticated()) {
     return next();
   }
-  res.redirect('/login');
+  res.json({
+    message: 'User is not authenticated',
+  });
 };
 
 /**

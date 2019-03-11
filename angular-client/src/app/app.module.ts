@@ -15,9 +15,12 @@ import { AlertDirective } from './directives';
 
 import { MaterialModule } from './modules';
 
-import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+// import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
-const config: SocketIoConfig = { url: 'http://localhost:8080/', options: {} };
+// TODO: This should be extracted in separate module
+// const config: SocketIoConfig = { url: 'http://localhost:8080/', options: {
+//   query: 'test=test'
+// } };
 
 @NgModule({
   declarations: [
@@ -36,7 +39,7 @@ const config: SocketIoConfig = { url: 'http://localhost:8080/', options: {} };
     AppRoutingModule,
     HttpClientModule,
     MaterialModule,
-    SocketIoModule.forRoot(config)
+    // SocketIoModule.forRoot(config)
   ],
   providers: [
     CookieService,

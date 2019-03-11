@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 
 import { ApiService } from './api.service';
+import { SocketsService } from './utils/sockets.service'
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class SessionService {
   constructor(
     private apiService: ApiService,
     private http: HttpClient,
+    private socketService: SocketsService,
   ) { }
 
   requestSessions(userId: string) {
@@ -27,6 +29,12 @@ export class SessionService {
   updateSessionStatus(sessionId: string, status: string) {
     return this.apiService.httpPutRequest(`session/${sessionId}`, { status } ).subscribe(data => {
       this.sourceSession.next(data.sessions);
+    });
+  }
+
+  onSessionUpdated(sessionId: string, userId: string) {
+    this.socketService.on('sessionUpdated', () => {
+      this.requestSessions(userId);
     });
   }
 }

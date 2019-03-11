@@ -40,6 +40,7 @@ export const getSessionsByUserId = (req: Request, res: Response, next: NextFunct
 export const updateSession = (req: Request, res: Response, next: NextFunction) => {
   Session.findById(req.params.sessionId).exec((err, session: SessionModel) => {
     session = _.extend(session, req.body);
+
     session.save((err: any) => {
       if (err) { return next(err); }
 

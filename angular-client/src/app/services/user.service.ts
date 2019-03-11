@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
 import { ApiService } from './api.service';
 
-import { Socket } from 'ngx-socket-io';
+// import { Socket } from 'ngx-socket-io';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,7 @@ export class UserService {
   constructor(
     private localStorageService: LocalStorageService,
     private apiService: ApiService,
-    private socket: Socket,
+    // private socket: Socket,
   ) { }
 
   public get currentUserValue() {

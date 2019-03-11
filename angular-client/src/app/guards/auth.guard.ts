@@ -5,7 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Observable, of } from 'rxjs';
 import { first, map, catchError } from 'rxjs/operators';
 
-import { UserService } from '../services';
+import { UserService, SocketsService } from '../services';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,7 @@ export class AuthGuard implements CanActivate {
     private http: HttpClient,
     private router: Router,
     private userService: UserService,
+    private socketsService: SocketsService,
   ) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
@@ -26,6 +27,7 @@ export class AuthGuard implements CanActivate {
       map((response) => {
           if (response.data.isAuthenticated) {
             this.userService.setUser(response.data.user);
+            this.socketsService.connect(response.data.user);
             return true;
           }
         }
