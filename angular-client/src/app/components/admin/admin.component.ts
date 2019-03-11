@@ -32,6 +32,7 @@ export class AdminComponent implements OnInit {
       this.gameService.requestGames(user.id);
       this.questionService.requestQuestions(user.id);
       this.sessionService.requestSessions(user.id);
+      this.sessionService.onSessionUpdated(user.id);
     });
 
     this.gameServiceSubscription = this.gameService.game.subscribe(games => {

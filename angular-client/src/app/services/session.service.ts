@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 
 import { ApiService } from './api.service';
-import { SocketsService } from './utils/sockets.service'
+import { SocketsService } from './utils/sockets.service';
 
 @Injectable({
   providedIn: 'root'
@@ -32,8 +32,8 @@ export class SessionService {
     });
   }
 
-  onSessionUpdated(sessionId: string, userId: string) {
-    this.socketService.on('sessionUpdated', () => {
+  onSessionUpdated(userId: string) {
+    this.socketService.on('sessionUpdated', data => {
       this.requestSessions(userId);
     });
   }

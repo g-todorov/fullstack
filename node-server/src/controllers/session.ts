@@ -3,6 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 import { IVerifyOptions } from 'passport-local';
 import { WriteError } from 'mongodb';
 import '../config/passport';
+import { emitSessionUpdate } from '../events/sessions';
 const request = require('express-validator');
 
 import _ from 'lodash';
@@ -44,6 +45,7 @@ export const updateSession = (req: Request, res: Response, next: NextFunction) =
     session.save((err: any) => {
       if (err) { return next(err); }
 
+      emitSessionUpdate();
       return res.status(201).json({ message: 'Session has been updated.' });
     });
   });
