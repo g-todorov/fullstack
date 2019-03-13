@@ -1,19 +1,14 @@
 import express from 'express';
-import session from 'express-session';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import mongo from 'connect-mongo';
 import flash from 'express-flash';
-import mongoose from 'mongoose';
 import passport from 'passport';
 import expressValidator from 'express-validator';
-import bluebird from 'bluebird';
-import { MONGODB_URI, SESSION_SECRET } from './utils/secrets';
 
-import seedDatabase from './utils/data-seed';
-
-const MongoStore = mongo(session);
+import expressSession from './config/express-session';
+import connectToDB from './config/db';
 
 // Load environment variables from .env file, where API keys and passwords are configured
 dotenv.config({ path: '.env.example' });
@@ -31,21 +26,7 @@ import * as passportConfig from './config/passport';
 const app = express();
 
 // Connect to MongoDB
-const mongoUrl = MONGODB_URI;
-
-(<any>mongoose).Promise = bluebird;
-mongoose.connect(mongoUrl, { useMongoClient: true }).then(
-  () => {
-    /** ready to use. The `mongoose.connect()` promise resolves to undefined. */
-    if (process.env.NODE_ENV !== 'production') {
-      seedDatabase();
-    }
-
-  },
-).catch(err => {
-  console.log('MongoDB connection error. Please make sure MongoDB is running. ' + err);
-  // process.exit();
-});
+connectToDB();
 
 // Express configuration
 app.set('port', process.env.PORT || 8080);
@@ -56,18 +37,7 @@ app.use(cors({
   origin: 'http://localhost:4200'
 }));
 app.use(expressValidator());
-app.use(session({
-  resave: true,
-  saveUninitialized: true,
-  secret: SESSION_SECRET,
-  cookie: {
-    httpOnly: false
-  },
-  store: new MongoStore({
-    url: mongoUrl,
-    autoReconnect: true
-  })
-}));
+app.use(expressSession);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());

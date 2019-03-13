@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { LocalStorageService } from './local-storage.service';
+import { LocalStorageService } from './utils/local-storage.service';
 import { ApiService } from './api.service';
 
 // import { Socket } from 'ngx-socket-io';
@@ -26,16 +26,6 @@ export class UserService {
   public get currentUserValue() {
     return this.sourceUser.value;
 }
-
-  // isAuthenticatedRequest() {
-  // this.apiService.httpGetRequest('me', {}).subscribe(
-  //   data => {
-  //     console.log(data);
-  //   },
-  //   error => {
-  //     console.log(error);
-  //   });
-  // }
 
   setUser(user: object) {
     this.sourceUser.next(user);

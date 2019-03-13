@@ -1,27 +1,41 @@
 import socketIo from 'socket.io';
 import { createServer, Server } from 'http';
 import * as passportConfig from './passport';
+import expressSession from './express-session';
+import { NextFunction } from 'express';
 
 let ioInstance: any;
 let socketInstance: any;
+let connectedSocketUsers: any[] = [];
 
 export const mountSockets = (httpServer: Server) => {
   ioInstance = socketIo(httpServer);
 
-  ioInstance.on('connect', (socket: any) => {
-    console.log('Connected socket client');
-    socketInstance = socket;
-    // TODO: implement authentication
-    // passportConfig.isAuthenticated(
+  ioInstance.use((socket: any, next: NextFunction) => {
+    expressSession(socket.request, socket.request.res, next);
+  });
 
-    // )
+  ioInstance.on('connect', (socket: any) => {
+    socketInstance = socket;
+
+    const passportAuthentication = socketInstance.request.session.passport;
+
+    if (passportAuthentication) {
+      connectedSocketUsers.push({
+        [socketInstance.id]: passportAuthentication.user
+      });
+    }
+    // TODO mount all listeners on instantiation
     // socket.on('message', (m: any) => {
     //     console.log('[server](message): %s', JSON.stringify(m));
     //     this.io.emit('message', m);
     // });
 
     socketInstance.on('disconnect', () => {
-      console.log('Socket client disconnected');
+      const filteredConnectedSocketUsers = connectedSocketUsers.filter(user => {
+        return user[socketInstance.id] == socketInstance.id;
+      });
+      connectedSocketUsers = filteredConnectedSocketUsers;
     });
   });
 
