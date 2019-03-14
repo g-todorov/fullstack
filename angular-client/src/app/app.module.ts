@@ -6,40 +6,39 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent, LoginComponent, RegisterComponent, AlertComponent, AdminComponent } from './components';
+import {
+  HomeComponent,
+  LoginComponent,
+  RegisterComponent,
+  AlertComponent,
+  AdminComponent,
+  UserComponent,
+} from './components';
 
 import { CookieInterceptor } from './interceptors/cookie.interceptor';
 import { CookieService } from 'ngx-cookie-service';
 
 import { AlertDirective } from './directives';
-
 import { MaterialModule } from './modules';
-
-// import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-
-// TODO: This should be extracted in separate module
-// const config: SocketIoConfig = { url: 'http://localhost:8080/', options: {
-//   query: 'test=test'
-// } };
 
 @NgModule({
   declarations: [
+    AdminComponent,
     AlertComponent,
     AlertDirective,
     AppComponent,
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    AdminComponent,
+    UserComponent,
   ],
   imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    ReactiveFormsModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
+    BrowserModule,
     HttpClientModule,
     MaterialModule,
-    // SocketIoModule.forRoot(config)
+    ReactiveFormsModule,
   ],
   providers: [
     CookieService,

@@ -1,0 +1,9 @@
+<p>
+  user works!
+</p>
+
+<div>
+  <div *ngFor="let session of userSessions">
+    <button mat-raised-button color="warn" (click)="onSessionStatusChange(event, session)" >{{session.status}}</button>
+  </div>
+</div>

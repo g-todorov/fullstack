@@ -4,7 +4,7 @@ import { default as Question, QuestionModel } from '../models/Question';
 import { default as Session, SessionModel } from '../models/Session';
 import { Document } from 'mongoose';
 
-import { mockedUsers, mockedGames, mockedQuestions, mockedSessions } from './assets/mock-data';
+import { mockedUsers, mockedGames, mockedQuestions, mockedSessions, admin } from './assets/mock-data';
 
 import * as constants from './constants';
 
@@ -22,8 +22,13 @@ const seedDatabase = async () => {
   const adminUser = existingUsers.find((user: UserModel) => {
     return user.role === constants.ADMIN_ROLE;
   });
-  const simpleUser = existingUsers.find((user: UserModel) => {
-    return user.role === constants.USER_ROLE;
+
+  const simpleUser1 = existingUsers.find((user: UserModel) => {
+    return user.role === constants.USER_ROLE && user.email === constants.USER1_EMAIL;
+  });
+
+  const simpleUser2 = existingUsers.find((user: UserModel) => {
+    return user.role === constants.USER_ROLE && user.email === constants.USER2_EMAIL;
   });
 
   // ~~~~~~~~~~~ Games ~~~~~~~~~~~
@@ -59,16 +64,20 @@ const seedDatabase = async () => {
   const existingSessions = await Session.find({}).exec();
 
   if (existingSessions.length === 0) {
+    mockedSessions[0].createdBy = adminUser.id;
+    mockedSessions[0].games = [adminGame.id];
+    mockedSessions[0].users = [simpleUser1.id];
+
+    mockedSessions[1].createdBy = adminUser.id;
+    mockedSessions[1].games = [adminUser.id];
+    mockedSessions[1].users = [simpleUser2.id];
+
     for (const session of mockedSessions) {
-      session.createdBy = adminUser.id;
-      session.games = [adminGame.id];
-      session.users = [simpleUser.id];
       const savedSession = await new Session(session).save();
 
       existingSessions.push(savedSession);
     }
   }
 };
-
 
 export default seedDatabase;

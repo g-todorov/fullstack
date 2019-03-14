@@ -17,8 +17,14 @@ export const moderator = new User({
   role: constants.MODERATOR_ROLE,
 });
 
-export const user = new User({
-  email: constants.USER_EMAIL,
+export const user1 = new User({
+  email: constants.USER1_EMAIL,
+  password: constants.USE_PASS,
+  role: constants.USER_ROLE,
+});
+
+export const user2 = new User({
+  email: constants.USER2_EMAIL,
   password: constants.USE_PASS,
   role: constants.USER_ROLE,
 });
@@ -26,7 +32,8 @@ export const user = new User({
 export const mockedUsers = [
   admin,
   moderator,
-  user,
+  user1,
+  user2,
 ];
 
 const game: IGame = {
@@ -87,13 +94,21 @@ export const mockedQuestions = [
   question2,
 ];
 
-const session: ISession = {
+const session1: ISession = {
   status: 'closed',
   createdBy: undefined,
   games: undefined,
   users: undefined,
 };
 
+const session2: ISession = {
+  status: 'opened',
+  createdBy: undefined,
+  games: undefined,
+  users: undefined,
+};
+
 export const mockedSessions = [
-  session
+  session1,
+  session2,
 ];

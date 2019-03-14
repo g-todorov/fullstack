@@ -4,13 +4,13 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  // TODO: Move this into resources
-  private apiUrl = 'http://localhost:8080/';
+  private apiUrl = environment.apiUrl;
 
   constructor(
     private http: HttpClient

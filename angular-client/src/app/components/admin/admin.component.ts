@@ -55,15 +55,7 @@ export class AdminComponent implements OnInit {
   }
 
   onSessionStatusChange(event, session) {
-    let newSessionStatus: string;
-
-    if (session.status === 'closed') {
-      newSessionStatus = 'opened';
-    } else {
-      newSessionStatus = 'closed';
-    }
-
-    this.sessionService.updateSessionStatus(session._id, newSessionStatus);
+    this.sessionService.updateSessionStatus(session._id, session.status);
   }
 
   dropGame(event: CdkDragDrop<string[]>) {

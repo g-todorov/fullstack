@@ -11,7 +11,6 @@ import { UserService } from '../services';
 export class RoleGuard implements CanActivate, CanActivateChild {
 
   constructor(
-    private cookieService: CookieService,
     private router: Router,
     private userService: UserService,
   ) { }

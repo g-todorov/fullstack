@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 
 import { ApiService } from './api.service';
 import { SocketsService } from './utils/sockets.service';
+import { SessionStates } from '../constants';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,12 @@ export class SessionService {
   }
 
   updateSessionStatus(sessionId: string, status: string) {
+    if (status === SessionStates.CLOSED) {
+      status = SessionStates.OPENED;
+    } else {
+      status = SessionStates.CLOSED;
+    }
+
     return this.apiService.httpPutRequest(`session/${sessionId}`, { status } ).subscribe(data => {
       this.sourceSession.next(data.sessions);
     });
