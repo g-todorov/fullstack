@@ -50,6 +50,8 @@ app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
 app.get('/me', userController.isAuthenticated);
 
+app.get('/user/:userId', userController.getUserById);
+
 app.get('/getQuestionsByUserId', questionController.getQuestionsByUserId);
 app.post('/question', questionController.postQuestion);
 
@@ -57,7 +59,8 @@ app.get('/getGamesByUserId', gameController.getGamesByUserId);
 app.post('/game', gameController.postGame);
 
 app.post('/session', sessionController.postSession);
-app.get('/session', sessionController.getSessionsByUserId);
+app.get('/session', sessionController.getSessions);
+app.get('/session/:sessionId', sessionController.getSessionById);
 app.put('/session/:sessionId', sessionController.updateSession);
 
 app.get('/forgot', userController.getForgot);
@@ -65,7 +68,7 @@ app.post('/forgot', userController.postForgot);
 app.get('/reset/:token', userController.getReset);
 app.post('/reset/:token', userController.postReset);
 app.post('/register', userController.register);
-app.get('/account', passportConfig.isAuthenticated, userController.getAccount);
+// app.get('/account', passportConfig.isAuthenticated, userController.getAccount);
 app.post('/account/profile', passportConfig.isAuthenticated, userController.postUpdateProfile);
 app.post('/account/password', passportConfig.isAuthenticated, userController.postUpdatePassword);
 app.post('/account/delete', passportConfig.isAuthenticated, userController.postDeleteAccount);

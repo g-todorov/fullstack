@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { UserService, GameService, QuestionService, SessionService } from '../../services';
+import { SessionStates } from '../../constants';
 
 @Component({
   selector: 'app-admin',
@@ -31,8 +32,13 @@ export class AdminComponent implements OnInit {
       this.currentUser = user;
       this.gameService.requestGames(user.id);
       this.questionService.requestQuestions(user.id);
-      this.sessionService.requestSessions(user.id);
-      this.sessionService.onSessionUpdated(user.id);
+
+      const sessionsQuery = {
+        createdBy: user.id
+      };
+
+      this.sessionService.requestSessions(sessionsQuery);
+      this.sessionService.onSessionUpdated(sessionsQuery);
     });
 
     this.gameServiceSubscription = this.gameService.game.subscribe(games => {
@@ -54,7 +60,7 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  onSessionStatusChange(event, session) {
+  handleSessionClick(event, session) {
     this.sessionService.updateSessionStatus(session._id, session.status);
   }
 
@@ -64,5 +70,13 @@ export class AdminComponent implements OnInit {
 
   dropQuestion(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.userQuestions, event.previousIndex, event.currentIndex);
+  }
+
+  getSessionButtonColour(sessionStatus: string) {
+    if (sessionStatus === SessionStates.CLOSED) {
+      return 'warn';
+    }
+
+    return 'primary';
   }
 }

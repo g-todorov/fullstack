@@ -7,6 +7,7 @@ import { emitSessionUpdate } from '../events/sessions';
 const request = require('express-validator');
 
 import _ from 'lodash';
+import { queue } from 'async';
 
 
 /**
@@ -27,13 +28,34 @@ export const postSession = (req: Request, res: Response, next: NextFunction) => 
   });
 };
 
-export const getSessionsByUserId = (req: Request, res: Response, next: NextFunction) => {
-  Session.find({createdBy: req.query.id}, (err, sessions: [SessionModel]) => {
+export const getSessions = (req: Request, res: Response, next: NextFunction) => {
+  const { query } = req;
+
+  const findQuery = {
+    createdBy: query.createdBy,
+    status: query.status,
+    users: query.user,
+  };
+
+  Session.find(_.omitBy(findQuery, _.isNil), (err, sessions: [SessionModel]) => {
 
     if (err) { return next(err); }
 
     return res.status(201).json({
-      sessions: sessions
+      sessions
+    });
+  });
+};
+
+export const getSessionById = (req: Request, res: Response, next: NextFunction) => {
+  const sessionId = req.params.sessionId;
+
+  Session.findById(req.params.sessionId, (err, session: [SessionModel]) => {
+
+    if (err) { return next(err); }
+
+    return res.status(201).json({
+      session
     });
   });
 };
@@ -42,10 +64,10 @@ export const updateSession = (req: Request, res: Response, next: NextFunction) =
   Session.findById(req.params.sessionId).exec((err, session: SessionModel) => {
     session = _.extend(session, req.body);
 
-    session.save((err: any) => {
+    session.save((err: any, session: SessionModel) => {
       if (err) { return next(err); }
 
-      emitSessionUpdate();
+      emitSessionUpdate(session.id, session.users);
       return res.status(201).json({ message: 'Session has been updated.' });
     });
   });
