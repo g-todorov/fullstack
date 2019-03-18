@@ -2,6 +2,7 @@ import { default as User, UserModel } from '../models/User';
 import { default as Game, GameModel } from '../models/Game';
 import { default as Question, QuestionModel } from '../models/Question';
 import { default as Session, SessionModel } from '../models/Session';
+import mongoose from 'mongoose';
 import { Document } from 'mongoose';
 
 import { mockedUsers, mockedGames, mockedQuestions, mockedSessions, admin } from './assets/mock-data';
@@ -9,6 +10,9 @@ import { mockedUsers, mockedGames, mockedQuestions, mockedSessions, admin } from
 import * as constants from './constants';
 
 const seedDatabase = async () => {
+  // Clear database
+  await mongoose.connection.db.dropDatabase();
+
   const existingUsers = await User.find({}).exec();
 
   // ~~~~~~~~~~~ Users ~~~~~~~~~~~
