@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { UserService, SessionService } from '../../services';
+import { SessionStates } from '../../constants';
 
 @Component({
   selector: 'app-user',
@@ -21,7 +22,13 @@ export class UserComponent implements OnInit {
   ngOnInit() {
     this.userServiceSubscription = this.userService.user.subscribe(user => {
       this.currentUser = user;
-      this.sessionService.requestSessions(user.id);
+
+      const sessionQuery = {
+        user: user.id
+       };
+
+      this.sessionService.requestSessions(sessionQuery);
+      this.sessionService.onSessionUpdated(sessionQuery);
     });
 
     this.sessionServiceSubscription = this.sessionService.session.subscribe(sessions => {
@@ -29,5 +36,17 @@ export class UserComponent implements OnInit {
         this.userSessions = sessions;
       }
     });
+  }
+
+  handleSessionClick(event, session) {
+    this.sessionService.updateSessionStatus(session._id, session.status);
+  }
+
+  getSessionButtonColour(sessionStatus: string) {
+    if (sessionStatus === SessionStates.CLOSED) {
+      return 'warn';
+    }
+
+    return 'primary';
   }
 }

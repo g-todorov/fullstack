@@ -12,6 +12,7 @@
 
 <div>
   <div *ngFor="let session of userSessions">
-    <button mat-raised-button color="warn" (click)="onSessionStatusChange(event, session)" >{{session.status}}</button>
+    <button mat-raised-button color="{{getSessionButtonColour(session.status)}}" (click)="handleSessionClick(event, session)" >{{session.status}}</button>
+    <app-session-card [session]="session"></app-session-card>
   </div>
 </div>

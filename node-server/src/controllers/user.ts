@@ -54,7 +54,7 @@ export let postLogin = (req: Request, res: Response, next: NextFunction) => {
   if (errors) {
     return res.status(400).json({
       errors: errors,
-      message: 'Bad reqest data'
+      message: 'Bad request data'
     });
   }
 
@@ -139,9 +139,14 @@ export let register = (req: Request, res: Response, next: NextFunction) => {
  * GET /account
  * Profile page.
  */
-export let getAccount = (req: Request, res: Response) => {
-  res.render('account/profile', {
-    title: 'Account Management'
+export let getUserById = (req: Request, res: Response, next: NextFunction) => {
+  User.findById(req.params.userId, (err, user: UserModel) => {
+    if (err) { return next(err); }
+
+    return res.status(200).json({
+      errors: user,
+      message: 'user found.'
+    });
   });
 };
 

@@ -21,9 +21,14 @@ export class SessionService {
     private socketService: SocketsService,
   ) { }
 
-  requestSessions(userId: string) {
-    return this.apiService.httpGetRequest('session', { params: { id: userId } }).subscribe(data => {
+  requestSessions(query: any) {
+    return this.apiService.httpGetRequest('session', { params: query }).subscribe(data => {
       this.sourceSession.next(data.sessions);
+    });
+  }
+
+  requestSession(sessionId: string) {
+    return this.apiService.httpGetRequest(`session/${sessionId}`, { }).subscribe(data => {
     });
   }
 
@@ -39,9 +44,9 @@ export class SessionService {
     });
   }
 
-  onSessionUpdated(userId: string) {
+  onSessionUpdated(query: any) {
     this.socketService.on('sessionUpdated', data => {
-      this.requestSessions(userId);
+      this.requestSessions(query);
     });
   }
 }
