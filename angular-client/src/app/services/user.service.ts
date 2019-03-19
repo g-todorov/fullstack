@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 
 import { LocalStorageService } from './utils/local-storage.service';
 import { ApiService } from './api.service';
+import { map } from 'rxjs/operators';
 
 // import { Socket } from 'ngx-socket-io';
 
@@ -25,7 +26,13 @@ export class UserService {
 
   public get currentUserValue() {
     return this.sourceUser.value;
-}
+  }
+
+  getUserById(userId: string) {
+    return this.apiService.httpGetRequest(`user/${userId}`, { }).pipe(map(response => {
+      return response.data;
+    }));
+  }
 
   setUser(user: object) {
     this.sourceUser.next(user);

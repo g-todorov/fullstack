@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SessionService } from '../../services';
 
+import { SessionStates } from '../../constants';
+
 @Component({
   selector: 'app-session-card',
   templateUrl: './session-card.component.html',
@@ -15,7 +17,18 @@ export class SessionCardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.sessionService.requestSession(this.sessionId);
   }
 
+
+  handleSessionClick(event, session) {
+    this.sessionService.updateSessionStatus(session._id, session.status);
+  }
+
+  getSessionButtonColour(sessionStatus: string) {
+    if (sessionStatus === SessionStates.CLOSED) {
+      return 'warn';
+    }
+
+    return 'primary';
+  }
 }

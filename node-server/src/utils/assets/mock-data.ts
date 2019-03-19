@@ -95,6 +95,7 @@ export const mockedQuestions = [
 ];
 
 const session1: ISession = {
+  name: 'Session 1',
   status: 'closed',
   createdBy: undefined,
   games: undefined,
@@ -102,6 +103,7 @@ const session1: ISession = {
 };
 
 const session2: ISession = {
+  name: 'Session 2',
   status: 'opened',
   createdBy: undefined,
   games: undefined,

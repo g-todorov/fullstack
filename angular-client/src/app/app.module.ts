@@ -15,6 +15,7 @@ import {
   UserComponent,
 } from './components';
 import { SessionCardComponent } from './shared_components/session-card/session-card.component';
+import { SessionUserDetailsComponent } from './shared_components/session-user-details/session-user-details.component';
 
 import { CookieInterceptor } from './interceptors/cookie.interceptor';
 import { CookieService } from 'ngx-cookie-service';
@@ -33,6 +34,7 @@ import { MaterialModule } from './modules';
     RegisterComponent,
     UserComponent,
     SessionCardComponent,
+    SessionUserDetailsComponent,
   ],
   imports: [
     AppRoutingModule,

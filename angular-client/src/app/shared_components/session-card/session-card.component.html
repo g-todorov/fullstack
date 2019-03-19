@@ -1,3 +1,7 @@
-<div>
-  {{session._id}}
-</div>
+<mat-card class="session-card">
+  {{session.name}}
+  <button mat-raised-button color="{{getSessionButtonColour(session.status)}}" (click)="handleSessionClick(event, session)" >{{session.status}}</button>
+  <div *ngFor="let userId of session.users">
+    <app-session-user-details [userId]="userId"></app-session-user-details>
+  </div>
+</mat-card>

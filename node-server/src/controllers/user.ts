@@ -144,7 +144,7 @@ export let getUserById = (req: Request, res: Response, next: NextFunction) => {
     if (err) { return next(err); }
 
     return res.status(200).json({
-      errors: user,
+      data: user,
       message: 'user found.'
     });
   });

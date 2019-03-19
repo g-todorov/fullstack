@@ -29,6 +29,7 @@ export class SessionService {
 
   requestSession(sessionId: string) {
     return this.apiService.httpGetRequest(`session/${sessionId}`, { }).subscribe(data => {
+      console.log(data);
     });
   }
 
