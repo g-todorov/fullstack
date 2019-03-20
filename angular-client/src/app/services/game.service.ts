@@ -23,10 +23,10 @@ export class GameService {
       this.sourceGame.next(data.games);
     });
   }
-}
 
-// requestShoppingItems() {
-//   this.apiService.httpGetRequest(this.itemsUrl).subscribe(shoppingItems => {
-//     this.sourceShoppingItems.next(shoppingItems); // this will make sure to tell every subscriber about the change.
-//   });
-// }
+  requestGameById(gameId: string) {
+    return this.apiService.httpGetRequest(`games/${gameId}`, { }).pipe(map(response => {
+      return response.data;
+    }));
+  }
+}

@@ -73,8 +73,8 @@ const seedDatabase = async () => {
     mockedSessions[0].users = [simpleUser1.id];
 
     mockedSessions[1].createdBy = adminUser.id;
-    mockedSessions[1].games = [adminUser.id];
-    mockedSessions[1].users = [simpleUser2.id];
+    mockedSessions[1].games = [adminGame.id];
+    mockedSessions[1].users = [simpleUser1.id, simpleUser2.id];
 
     for (const session of mockedSessions) {
       const savedSession = await new Session(session).save();

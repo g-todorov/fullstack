@@ -35,3 +35,14 @@ export let getGamesByUserId = (req: Request, res: Response, next: NextFunction) 
     });
   });
 };
+
+export let getGameById = (req: Request, res: Response, next: NextFunction) => {
+  Game.findById(req.params.gameId, (err, game: GameModel) => {
+    if (err) { return next(err); }
+
+    return res.status(200).json({
+      data: game,
+      message: 'game found.'
+    });
+  });
+};

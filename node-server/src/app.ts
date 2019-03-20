@@ -45,6 +45,7 @@ app.use(flash());
 /**
  * Primary app routes.
  * TODO Abstract in a separate file/folder.
+ * TODO All routes should be plural.
  */
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
@@ -57,6 +58,7 @@ app.post('/question', questionController.postQuestion);
 
 app.get('/getGamesByUserId', gameController.getGamesByUserId);
 app.post('/game', gameController.postGame);
+app.get('/games/:gameId', gameController.getGameById);
 
 app.post('/session', sessionController.postSession);
 app.get('/session', sessionController.getSessions);

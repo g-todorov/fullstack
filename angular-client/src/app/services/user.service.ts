@@ -28,7 +28,7 @@ export class UserService {
     return this.sourceUser.value;
   }
 
-  getUserById(userId: string) {
+  requestUserById(userId: string) {
     return this.apiService.httpGetRequest(`user/${userId}`, { }).pipe(map(response => {
       return response.data;
     }));

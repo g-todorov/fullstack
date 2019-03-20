@@ -22,9 +22,9 @@ export const mountSockets = (httpServer: Server) => {
     const passportAuthentication = socketInstance.request.session.passport;
 
     // TODO this should be further investigated;
-    const isAlreadyConnected: boolean = connectedSocketUsers[passportAuthentication.user];
+    // const isAlreadyConnected: boolean = connectedSocketUsers[passportAuthentication.user];
 
-    if (passportAuthentication ) {
+    if (passportAuthentication) {
       connectedSocketUsers[passportAuthentication.user] = socketInstance.id;
     }
 
@@ -35,7 +35,8 @@ export const mountSockets = (httpServer: Server) => {
     // });
 
     socketInstance.on('disconnect', () => {
-      delete connectedSocketUsers[passportAuthentication.user];
+      // TODO this is buggy
+      // delete connectedSocketUsers[passportAuthentication.user];
     });
   });
 

@@ -1,7 +1,18 @@
 <mat-card class="session-card">
-  {{session.name}}
-  <button mat-raised-button color="{{getSessionButtonColour(session.status)}}" (click)="handleSessionClick(event, session)" >{{session.status}}</button>
-  <div *ngFor="let userId of session.users">
-    <app-session-user-details [userId]="userId"></app-session-user-details>
-  </div>
+  <mat-card-title>{{session.name}}</mat-card-title>
+  <mat-card class="user-details-card">
+    <mat-card-title>Users</mat-card-title>
+    <div *ngFor="let userId of session.users">
+      <app-session-user-details [userId]="userId"></app-session-user-details>
+    </div>
+  </mat-card>
+  <mat-card class="game-details-card">
+    <mat-card-title>Games</mat-card-title>
+    <div *ngFor="let gameId of session.games">
+      <app-session-game-details [gameId]="gameId"></app-session-game-details>
+    </div>
+  </mat-card>
+  <mat-card-actions>
+    <button mat-raised-button color="{{getSessionButtonColour(session.status)}}" (click)="handleSessionClick(event, session)" >{{session.status}}</button>
+  </mat-card-actions>
 </mat-card>

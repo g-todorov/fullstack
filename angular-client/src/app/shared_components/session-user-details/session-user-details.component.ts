@@ -16,7 +16,7 @@ export class SessionUserDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userService.getUserById(this.userId).subscribe(user => {
+    this.userService.requestUserById(this.userId).subscribe(user => {
       this.userDetails = user;
     });
   }

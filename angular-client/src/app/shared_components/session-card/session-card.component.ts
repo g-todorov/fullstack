@@ -19,7 +19,6 @@ export class SessionCardComponent implements OnInit {
   ngOnInit() {
   }
 
-
   handleSessionClick(event, session) {
     this.sessionService.updateSessionStatus(session._id, session.status);
   }
