@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { HomeComponent, LoginComponent, RegisterComponent, AdminComponent } from './components';
+import { HomeComponent, LoginComponent, RegisterComponent, SessionComponent } from './components';
 import { AuthGuard, RoleGuard } from './guards';
 
 const routes: Routes = [
@@ -9,6 +9,17 @@ const routes: Routes = [
     path: '',
     canActivate: [AuthGuard],
     component: HomeComponent,
+    // children: [
+    //   {
+    //     path: '',
+    //     children: [
+    //       {
+    //         path: 'session/:id',
+    //         component: SessionComponent,
+    //       }
+    //     ]
+    //   }
+    // ]
     // children: [
     //   {
     //     path: '',
@@ -41,6 +52,12 @@ const routes: Routes = [
 //     path: 'admin',
 //     component: AdminComponent,
 //   }
+,
+  {
+    path: 'session/:id',
+    canActivate: [AuthGuard],
+    component: SessionComponent,
+  }
 ,
   {
     path: 'login',

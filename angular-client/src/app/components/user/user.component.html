@@ -1,10 +1,6 @@
-<p>
-  user works!
-</p>
-
 <div>
   <div *ngFor="let session of userSessions">
-    <!-- <button mat-raised-button color="{{getSessionButtonColour(session.status)}}" (click)="handleSessionClick(event, session)" >{{session.status}}</button> -->
+    <a routerLink="session/{{session._id}}">{{session.name}}</a>
     <button mat-raised-button color="{{getSessionButtonColour(session.status)}}">{{session.status}}</button>
   </div>
 </div>
