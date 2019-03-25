@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from '../../services';
 
-
 @Component({
   selector: 'app-session-user-details',
   templateUrl: './session-user-details.component.html',

@@ -67,7 +67,7 @@ export const updateSession = (req: Request, res: Response, next: NextFunction) =
     session.save((err: any, session: SessionModel) => {
       if (err) { return next(err); }
 
-      emitSessionUpdate(session.id, session.users);
+      emitSessionUpdate(req.user.id, session.users);
       return res.status(201).json({ message: 'Session has been updated.' });
     });
   });

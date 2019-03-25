@@ -5,7 +5,6 @@ import expressSession from './express-session';
 import { NextFunction } from 'express';
 
 let ioInstance: any;
-let socketInstance: any;
 
 const connectedSocketUsers: any[] = [];
 
@@ -16,16 +15,14 @@ export const mountSockets = (httpServer: Server) => {
     expressSession(socket.request, socket.request.res, next);
   });
 
-  ioInstance.on('connect', (socket: any) => {
-    socketInstance = socket;
-
+  ioInstance.on('connect', (socketInstance: any) => {
     const passportAuthentication = socketInstance.request.session.passport;
 
     // TODO this should be further investigated;
     // const isAlreadyConnected: boolean = connectedSocketUsers[passportAuthentication.user];
 
     if (passportAuthentication) {
-      connectedSocketUsers[passportAuthentication.user] = socketInstance.id;
+      connectedSocketUsers[passportAuthentication.user] = socketInstance;
     }
 
     // TODO mount all listeners on instantiation
@@ -36,22 +33,24 @@ export const mountSockets = (httpServer: Server) => {
 
     socketInstance.on('disconnect', () => {
       // TODO this is buggy
-      // delete connectedSocketUsers[passportAuthentication.user];
+      if (passportAuthentication) {
+        delete connectedSocketUsers[passportAuthentication.user];
+      }
     });
   });
 
   return ioInstance;
 };
 
-export const socketEmit = (key: string, data: any) => {
-  if (socketInstance) {
-    socketInstance.emit(key, data);
+export const socketEmit = (userId: number, key: string, data: any) => {
+  if (connectedSocketUsers[userId]) {
+    connectedSocketUsers[userId].emit(key, data);
   }
 };
 
-export const socketEmitTo = (toId: string, key: string, data: any) => {
-  if (socketInstance) {
-    socketInstance.to(toId).emit(key, data);
+export const socketEmitTo = (toUserId: any, key: string, data: any) => {
+  if (connectedSocketUsers[toUserId]) {
+    ioInstance.to(connectedSocketUsers[toUserId].id).emit(key, data);
   }
 };
 
