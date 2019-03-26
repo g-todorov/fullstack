@@ -48,43 +48,45 @@ export const mockedGames = [
 
 const question1: IQuestion = {
   name: 'adminQuestion1',
-  type: 'options',
+  type: 'singleOption',
+  label: 'Who is te fastest football player for 2019?',
   options: [
     {
-      label: 'label',
-      value: 'value1',
+      label: 'Mbappe',
+      value: 'mbappe',
     }
   ,
     {
-      label: 'label',
-      value: 'value2',
+      label: 'Rashford',
+      value: 'rashford',
     }
   ],
-  answer: ['value2'],
+  answer: ['Mbappe'],
   game: undefined,
   createdBy: undefined,
 };
 
 const question2: IQuestion = {
   name: 'adminQuestion2',
-  type: 'multipleOptions',
+  type: 'singleOption',
+  label: 'Who won the CL in 1999?',
   options: [
     {
-      label: 'label',
-      value: 'value1',
+      label: 'Real Madrid',
+      value: 'realMadrid',
     }
   ,
     {
-      label: 'label',
-      value: 'value2',
+      label: 'Manchester United',
+      value: 'manchesterUnited',
     }
     ,
     {
-      label: 'label',
-      value: 'value3',
+      label: 'Arsenal',
+      value: 'arsenal',
     }
   ],
-  answer: ['value2', 'value3'],
+  answer: ['manchesterUnited'],
   game: undefined,
   createdBy: undefined,
 };

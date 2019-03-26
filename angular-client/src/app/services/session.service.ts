@@ -11,7 +11,6 @@ import { SessionStates } from '../constants';
   providedIn: 'root'
 })
 export class SessionService {
-
   private sourceSession = new BehaviorSubject(null);
   session = this.sourceSession.asObservable();
 
@@ -27,10 +26,10 @@ export class SessionService {
     });
   }
 
-  requestSession(sessionId: string) {
-    return this.apiService.httpGetRequest(`session/${sessionId}`, { }).subscribe(data => {
-      console.log(data);
-    });
+  requestSessionById(sessionId: string) {
+    return this.apiService.httpGetRequest(`session/${sessionId}`, { }).pipe(map(response => {
+      return response.session;
+    }));
   }
 
   updateSessionStatus(sessionId: string, status: string) {
