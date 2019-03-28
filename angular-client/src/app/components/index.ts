@@ -5,3 +5,4 @@ export * from './home/home.component';
 export * from './login/login.component';
 export * from './register/register.component';
 export * from './session/session.component';
+export * from './main-navigation/main-navigation.component';

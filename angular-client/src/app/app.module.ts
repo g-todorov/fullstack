@@ -13,6 +13,8 @@ import {
   AlertComponent,
   AdminComponent,
   UserComponent,
+  MainNavigationComponent,
+  SessionComponent,
 } from './components';
 import { SessionCardComponent } from './shared_components/session-card/session-card.component';
 import { SessionUserDetailsComponent } from './shared_components/session-user-details/session-user-details.component';
@@ -23,7 +25,6 @@ import { CookieService } from 'ngx-cookie-service';
 
 import { AlertDirective } from './directives';
 import { MaterialModule } from './modules';
-import { SessionComponent } from './components/session/session.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { SessionComponent } from './components/session/session.component';
     SessionUserDetailsComponent,
     SessionGameDetailsComponent,
     SessionComponent,
+    MainNavigationComponent,
   ],
   imports: [
     AppRoutingModule,

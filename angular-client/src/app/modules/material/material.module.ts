@@ -3,28 +3,32 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import {
   MatButtonModule,
+  MatCardModule,
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
+  MatMenuModule,
   MatProgressBarModule,
   MatProgressSpinnerModule,
   MatSnackBarModule,
-  MatCardModule,
   MatTableModule,
+  MatToolbarModule,
 } from '@angular/material';
 
 @NgModule({
   exports: [
     DragDropModule,
     MatButtonModule,
+    MatCardModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatMenuModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
-    MatCardModule,
     MatTableModule,
+    MatToolbarModule,
   ]
 })
 export class MaterialModule { }
