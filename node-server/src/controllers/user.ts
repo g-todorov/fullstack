@@ -85,9 +85,17 @@ export let postLogin = (req: Request, res: Response, next: NextFunction) => {
  * GET /logout
  * Log out.
  */
-export let logout = (req: Request, res: Response) => {
-  req.logout();
-  res.redirect('/');
+export let logout = (req: Request, res: Response, next: NextFunction) => {
+  req.session.destroy((err) => {
+    if (err) return next(err);
+    req.logout();
+    // res.clearCookie('node-server-token');
+    res.status(200)
+      .clearCookie('node-server-token')
+      .json({
+        message: 'Successfull logout'
+      });
+  });
 };
 
 /**

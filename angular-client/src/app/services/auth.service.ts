@@ -45,7 +45,14 @@ export class AuthService {
 
   logout() {
     // remove user from local storage to log user out
-    this.cookieService.delete('test');
+    return this.http.get<any>(`http://localhost:8080/logout`).pipe(map(response => {
+      debugger
+      if (response) {
+      }
+
+      return response;
+    }));
+    // this.cookieService.delete('authService');
   }
 }
 
