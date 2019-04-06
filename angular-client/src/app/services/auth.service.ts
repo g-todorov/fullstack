@@ -5,6 +5,8 @@ import { map } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 import { UserService } from './user.service';
 
+import { environment } from '../../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -17,7 +19,7 @@ export class AuthService {
   ) { }
 
   register(email: string, password: string) {
-    return this.http.post<any>(`http://localhost:8080/register`, { email: email, password: password })
+    return this.http.post<any>(`${environment.apiUrl}/register`, { email: email, password: password })
       .pipe(map(user => {
         // login successful if there's a jwt token in the response
         if (user) {
@@ -30,7 +32,7 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
-    return this.http.post<any>(`http://localhost:8080/login`, { email: email, password: password })
+    return this.http.post<any>(`${environment.apiUrl}/login`, { email: email, password: password })
       .pipe(map(response => {
         // login successful if there's a jwt token in the response
         if (response.user) {
@@ -45,14 +47,7 @@ export class AuthService {
 
   logout() {
     // remove user from local storage to log user out
-    return this.http.get<any>(`http://localhost:8080/logout`).pipe(map(response => {
-      debugger
-      if (response) {
-      }
-
-      return response;
-    }));
-    // this.cookieService.delete('authService');
+    return this.http.get<any>(`${environment.apiUrl}/logout`).pipe(map(response => response));
   }
 }
 

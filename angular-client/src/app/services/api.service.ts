@@ -23,7 +23,7 @@ export class ApiService {
     //   { params: new HttpParams().set('name', term) } : {};
     return this.http.get<any>(requestUrl, options)
       .pipe(
-        tap(data => console.log('get response loaded')),
+        tap(data => data),
         catchError(this.handleError('getItems', []))
       );
   }

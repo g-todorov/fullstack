@@ -89,11 +89,10 @@ export let logout = (req: Request, res: Response, next: NextFunction) => {
   req.session.destroy((err) => {
     if (err) return next(err);
     req.logout();
-    // res.clearCookie('node-server-token');
     res.status(200)
       .clearCookie('node-server-token')
       .json({
-        message: 'Successfull logout'
+        message: 'Successful logout'
       });
   });
 };

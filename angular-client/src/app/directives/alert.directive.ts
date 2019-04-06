@@ -1,4 +1,4 @@
-import { Directive, OnInit, OnDestroy } from '@angular/core';
+import { Directive, Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { MatSnackBar } from '@angular/material';
@@ -18,19 +18,19 @@ export class AlertDirective implements OnInit, OnDestroy {
       this.message = message;
 
       if (message) {
-        this.openSnackBar(message.text, 'close');
+        this.openSnackBar(message.text, 'close', 'error-text');
       }
     });
   }
 
-  openSnackBar(message: string, action: string) {
+  openSnackBar(message: string, action: string, snackBarClass: string) {
     this.snackBar.open(message, action, {
       duration: 5000,
+      panelClass: snackBarClass,
     });
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-
 }

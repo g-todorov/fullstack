@@ -15,11 +15,7 @@ export class SocketsService implements OnDestroy {
   constructor() { }
 
   connect(user) {
-    // If you aren't familiar with environment variables then
-    // you can hard code `environment.apiUrl` as `http://localhost:5000`
     this.socket = io(environment.apiUrl, {query: 'userId=' + user.userId});
-
-    // this.socket.emit('message', 'test');
   }
 
   on(key: string, callback: Function) {

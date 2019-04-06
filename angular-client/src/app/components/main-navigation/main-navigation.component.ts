@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
-import { AuthService } from '../../services';
+import { Router } from '@angular/router';
+import { AuthService, AlertService } from '../../services';
 
 @Component({
   selector: 'app-main-navigation',
@@ -10,7 +10,9 @@ import { AuthService } from '../../services';
 export class MainNavigationComponent implements OnInit {
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private alertService: AlertService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -18,7 +20,8 @@ export class MainNavigationComponent implements OnInit {
 
   logout() {
     this.authService.logout().subscribe(data => {
-      debugger
+      this.alertService.success(data.message);
+      this.router.navigate(['/login']);
     });
   }
 }
