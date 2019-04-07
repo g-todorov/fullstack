@@ -21,13 +21,13 @@ export class SessionService {
   ) { }
 
   requestSessions(query: any) {
-    return this.apiService.httpGetRequest('/session', { params: query }).subscribe(data => {
+    return this.apiService.httpGetRequest('/sessions', { params: query }).subscribe(data => {
       this.sourceSession.next(data.sessions);
     });
   }
 
   requestSessionById(sessionId: string) {
-    return this.apiService.httpGetRequest(`/session/${sessionId}`, { }).pipe(map(response => {
+    return this.apiService.httpGetRequest(`/sessions/${sessionId}`, { }).pipe(map(response => {
       return response.session;
     }));
   }
@@ -39,7 +39,7 @@ export class SessionService {
       status = SessionStates.CLOSED;
     }
 
-    return this.apiService.httpPutRequest(`/session/${sessionId}`, { status } ).subscribe(data => {
+    return this.apiService.httpPutRequest(`/sessions/${sessionId}`, { status } ).subscribe(data => {
       this.sourceSession.next(data.sessions);
     });
   }

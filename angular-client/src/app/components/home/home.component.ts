@@ -9,8 +9,8 @@ import { UserService, GameService } from '../../services';
   styleUrls: ['./home.component.styl']
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  currentUser: object = null;
-  currentUserGames: object[] = null;
+  currentUser: any;
+  currentUserGames: any[] = null;
   userServiceSubscription: Subscription;
   gameServiceSubscription: Subscription;
 

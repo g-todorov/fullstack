@@ -18,8 +18,8 @@ export class GameService {
     private http: HttpClient,
   ) { }
 
-  requestGames(userId: string) {
-    return this.apiService.httpGetRequest('/getGamesByUserId', { params: { id: userId } }).subscribe(data => {
+  requestGames(query: any) {
+    return this.apiService.httpGetRequest('/games', { params: query }).subscribe(data => {
       this.sourceGame.next(data.games);
     });
   }

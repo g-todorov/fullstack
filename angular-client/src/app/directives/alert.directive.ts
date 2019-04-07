@@ -16,9 +16,13 @@ export class AlertDirective implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription = this.alertService.getMessage().subscribe(message => {
       this.message = message;
+      let snackBarClass = '';
 
       if (message) {
-        this.openSnackBar(message.text, 'close', 'error-text');
+        if (message.type === 'error') {
+          snackBarClass =  'error-text';
+        }
+        this.openSnackBar(message.text, 'close', snackBarClass);
       }
     });
   }

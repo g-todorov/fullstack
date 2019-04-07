@@ -18,8 +18,8 @@ export class QuestionService {
     private http: HttpClient,
   ) { }
 
-  requestQuestions(userId: string) {
-    return this.apiService.httpGetRequest('getQuestionsByUserId', { params: { id: userId } }).subscribe(data => {
+  requestQuestions(query: any) {
+    return this.apiService.httpGetRequest('/questions', { params: query }).subscribe(data => {
       this.sourceQuestion.next(data.questions);
     });
   }

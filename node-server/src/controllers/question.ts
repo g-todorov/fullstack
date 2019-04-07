@@ -1,20 +1,9 @@
-import async from 'async';
-import crypto from 'crypto';
-import nodemailer from 'nodemailer';
+import _ from 'lodash';
 import passport from 'passport';
-import { default as User, UserModel, AuthToken } from '../models/User';
 import { default as Question, QuestionModel } from '../models/Question';
 import { Request, Response, NextFunction } from 'express';
-import { IVerifyOptions } from 'passport-local';
-import { WriteError } from 'mongodb';
 import '../config/passport';
-const request = require('express-validator');
 
-
-/**
- * POST /question
- * Create question.
- */
 export let postQuestion = (req: Request, res: Response, next: NextFunction) => {
   const question = new Question({
     name: req.body.name,
@@ -31,13 +20,19 @@ export let postQuestion = (req: Request, res: Response, next: NextFunction) => {
   });
 };
 
-export let getQuestionsByUserId = (req: Request, res: Response, next: NextFunction) => {
-  Question.find({createdBy: req.query.id}, (err, questions: [QuestionModel]) => {
+export const getQuestions = (req: Request, res: Response, next: NextFunction) => {
+  const { query } = req;
+
+  const findQuery = {
+    createdBy: query.createdBy,
+  };
+
+  Question.find(_.omitBy(findQuery, _.isNil), (err, questions: [QuestionModel]) => {
 
     if (err) { return next(err); }
 
     return res.status(201).json({
-      questions: questions
+      questions
     });
   });
 };

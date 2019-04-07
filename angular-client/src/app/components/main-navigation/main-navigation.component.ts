@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService, AlertService } from '../../services';
 
@@ -8,6 +8,7 @@ import { AuthService, AlertService } from '../../services';
   styleUrls: ['./main-navigation.component.styl']
 })
 export class MainNavigationComponent implements OnInit {
+  @Input() user: any;
 
   constructor(
     private authService: AuthService,

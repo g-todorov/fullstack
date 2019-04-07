@@ -22,7 +22,7 @@ export class UserService {
   }
 
   requestUserById(userId: string) {
-    return this.apiService.httpGetRequest(`/user/${userId}`, { }).pipe(map(response => {
+    return this.apiService.httpGetRequest(`/users/${userId}`, { }).pipe(map(response => {
       return response.data;
     }));
   }

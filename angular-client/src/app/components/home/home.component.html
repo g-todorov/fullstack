@@ -1,4 +1,4 @@
-<app-main-navigation></app-main-navigation>
+<app-main-navigation [user]="currentUser"></app-main-navigation>
 <div>
   <div *ngIf="currentUser.role === 'admin'">
     <app-admin></app-admin>

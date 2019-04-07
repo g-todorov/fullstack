@@ -29,8 +29,8 @@ export class AdminComponent implements OnInit {
   ngOnInit() {
     this.userServiceSubscription = this.userService.user.subscribe(user => {
       this.currentUser = user;
-      this.gameService.requestGames(user.id);
-      this.questionService.requestQuestions(user.id);
+      this.gameService.requestGames({createdBy: user.id});
+      this.questionService.requestQuestions({createdBy: user.id});
 
       const sessionsQuery = {
         createdBy: user.id

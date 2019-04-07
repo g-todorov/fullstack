@@ -1,16 +1,11 @@
+import _ from 'lodash';
 import { default as Game, GameModel } from '../models/Game';
 import { Request, Response, NextFunction } from 'express';
 import { IVerifyOptions } from 'passport-local';
 import { WriteError } from 'mongodb';
 import '../config/passport';
-// import User from 'src/models/User';
 const request = require('express-validator');
 
-
-/**
- * POST /game
- * Create game.
- */
 export let postGame = (req: Request, res: Response, next: NextFunction) => {
   const game = new Game({
     name: req.body.name,
@@ -25,8 +20,14 @@ export let postGame = (req: Request, res: Response, next: NextFunction) => {
   });
 };
 
-export let getGamesByUserId = (req: Request, res: Response, next: NextFunction) => {
-  Game.find({createdBy: req.query.id}, (err, games: [GameModel]) => {
+export const getGames = (req: Request, res: Response, next: NextFunction) => {
+  const { query } = req;
+
+  const findQuery = {
+    createdBy: query.createdBy,
+  };
+
+  Game.find(_.omitBy(findQuery, _.isNil), (err, games: [GameModel]) => {
 
     if (err) { return next(err); }
 
@@ -42,7 +43,7 @@ export let getGameById = (req: Request, res: Response, next: NextFunction) => {
 
     return res.status(200).json({
       data: game,
-      message: 'game found.'
+      message: 'Game found.'
     });
   });
 };
