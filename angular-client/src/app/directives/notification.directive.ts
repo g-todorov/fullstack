@@ -2,19 +2,19 @@ import { Directive, Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { MatSnackBar } from '@angular/material';
-import { AlertService } from '../services/alert.service';
+import { NotificationService } from '../services';
 
 @Directive({
-  selector: '[appAlert]'
+  selector: '[appNotification]'
 })
-export class AlertDirective implements OnInit, OnDestroy {
+export class NotificationDirective implements OnInit, OnDestroy {
   private subscription: Subscription;
   message: any;
 
-  constructor(private alertService: AlertService, public snackBar: MatSnackBar) { }
+  constructor(private notificationService: NotificationService, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    this.subscription = this.alertService.getMessage().subscribe(message => {
+    this.subscription = this.notificationService.getMessage().subscribe(message => {
       this.message = message;
       let snackBarClass = '';
 

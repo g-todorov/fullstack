@@ -1,1 +1,1 @@
-export * from './alert.directive';
+export * from './notification.directive';

@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { AuthService } from '../../services';
-import { AlertService } from '../../services/alert.service';
+import { NotificationService } from '../../services';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private alertService: AlertService,
+    private notificationService: NotificationService,
     private formBuilder: FormBuilder,
     private router: Router) { }
 
@@ -54,11 +54,11 @@ export class RegisterComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          this.alertService.success(data.message, true);
+          this.notificationService.success(data.message, true);
           this.router.navigate(['/login']);
         },
         error => {
-          this.alertService.error(error.error.message);
+          this.notificationService.error(error.error.message);
           this.loading = false;
         });
   }

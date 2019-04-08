@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService, AlertService } from '../../services';
+import { AuthService, NotificationService } from '../../services';
 
 @Component({
   selector: 'app-main-navigation',
@@ -12,7 +12,7 @@ export class MainNavigationComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private alertService: AlertService,
+    private notificationService: NotificationService,
     private router: Router,
   ) { }
 
@@ -21,7 +21,7 @@ export class MainNavigationComponent implements OnInit {
 
   logout() {
     this.authService.logout().subscribe(data => {
-      this.alertService.success(data.message);
+      this.notificationService.success(data.message);
       this.router.navigate(['/login']);
     });
   }

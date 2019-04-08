@@ -10,7 +10,6 @@ import {
   HomeComponent,
   LoginComponent,
   RegisterComponent,
-  AlertComponent,
   AdminComponent,
   UserComponent,
   MainNavigationComponent,
@@ -21,16 +20,16 @@ import { SessionUserDetailsComponent } from './shared_components/session-user-de
 import { SessionGameDetailsComponent } from './shared_components/session-game-details/session-game-details.component';
 
 import { CookieInterceptor } from './interceptors/cookie.interceptor';
+import { HttpErrorInterceptor } from './interceptors/http-errors.interceptor';
 import { CookieService } from 'ngx-cookie-service';
 
-import { AlertDirective } from './directives';
+import { NotificationDirective } from './directives';
 import { MaterialModule } from './modules';
 
 @NgModule({
   declarations: [
     AdminComponent,
-    AlertComponent,
-    AlertDirective,
+    NotificationDirective,
     AppComponent,
     HomeComponent,
     LoginComponent,
@@ -52,6 +51,11 @@ import { MaterialModule } from './modules';
   ],
   providers: [
     CookieService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true,
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: CookieInterceptor,

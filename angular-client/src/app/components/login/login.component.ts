@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-import { AuthService, AlertService } from '../../services';
+import { AuthService, NotificationService } from '../../services';
 
 @Component({
   templateUrl: 'login.component.html',
@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private alertService: AlertService,
+    private notificationService: NotificationService,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private router: Router,
@@ -50,7 +50,6 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
     // stop here if form is invalid
     if (this.loginForm.invalid) {
       return;
@@ -64,7 +63,6 @@ export class LoginComponent implements OnInit {
           this.router.navigate([this.returnUrl]);
         },
         error => {
-          this.alertService.error(error.error.message);
           this.loading = false;
         });
   }
