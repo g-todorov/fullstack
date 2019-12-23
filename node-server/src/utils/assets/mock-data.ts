@@ -7,25 +7,25 @@ import * as constants from '../constants';
 
 export const admin = new User({
   email: constants.ADMIN_EMAIL,
-  password: constants.USE_PASS,
+  password: constants.USER_PASS,
   role: constants.ADMIN_ROLE,
 });
 
 export const moderator = new User({
   email: constants.MODERATOR_EMAIL,
-  password: constants.USE_PASS,
+  password: constants.USER_PASS,
   role: constants.MODERATOR_ROLE,
 });
 
 export const user1 = new User({
   email: constants.USER1_EMAIL,
-  password: constants.USE_PASS,
+  password: constants.USER_PASS,
   role: constants.USER_ROLE,
 });
 
 export const user2 = new User({
   email: constants.USER2_EMAIL,
-  password: constants.USE_PASS,
+  password: constants.USER_PASS,
   role: constants.USER_ROLE,
 });
 

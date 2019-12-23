@@ -4,7 +4,6 @@ import { createServer, Server } from 'http';
 import app from './app';
 import { mountSockets } from './config/sockets';
 
-
 /**
  * Error Handler. Provides full stack - remove for production
  */
