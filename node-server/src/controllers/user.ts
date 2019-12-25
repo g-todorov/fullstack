@@ -7,38 +7,29 @@ import { Request, Response, NextFunction } from 'express';
 import { IVerifyOptions } from 'passport-local';
 import { WriteError } from 'mongodb';
 import '../config/passport';
-const request = require('express-validator');
+// const request = require('express-validator');
 
 import _ from 'lodash';
 
-export let isAuthenticated = (req: Request, res: Response, next: NextFunction) => {
-  if (req.isAuthenticated()) {
-    const { email, id, role } = req.user;
+export const getAuthenticatedUser = (req: Request, res: Response, next: NextFunction) => {
+  const { email, id, role } = req.user;
 
-    return res.status(200).json({
-      message: 'User is authenticated.',
-      data: {
-        isAuthenticated: true,
-        user: {
-          email: email,
-          id: id,
-          role: role,
-        },
+  return res.status(200).json({
+    message: 'User is authenticated.',
+    data: {
+      isAuthenticated: true,
+      user: {
+        email: email,
+        id: id,
+        role: role,
       },
-    });
-  } else {
-    return res.status(401).json({
-      message: 'User is not authenticated.',
-      data: {
-        isAuthenticated: false,
-      },
-    });
-  }
+    },
+  });
 };
 
-export let login = (req: Request, res: Response, next: NextFunction) => {
-  req.assert('email', 'Email is not valid').isEmail();
-  req.assert('password', 'Password cannot be blank').notEmpty();
+export const login = (req: Request, res: Response, next: NextFunction) => {
+  req.check('email', 'Email is not valid').isEmail();
+  req.check('password', 'Password cannot be blank').notEmpty();
   req.sanitize('email').normalizeEmail({ gmail_remove_dots: false });
 
   const errors = req.validationErrors();
@@ -73,19 +64,19 @@ export let login = (req: Request, res: Response, next: NextFunction) => {
   })(req, res, next);
 };
 
-export let logout = (req: Request, res: Response, next: NextFunction) => {
+export const logout = (req: Request, res: Response, next: NextFunction) => {
   req.session.destroy((err) => {
     if (err) return next(err);
     req.logout();
     res.status(200)
       .clearCookie('node-server-token')
       .json({
-        message: 'Successful logout'
+        message: 'Successful logout.'
       });
   });
 };
 
-export let register = (req: Request, res: Response, next: NextFunction) => {
+export const register = (req: Request, res: Response, next: NextFunction) => {
   req.assert('email', 'Email is not valid').isEmail();
   req.assert('password', 'Password must be at least 4 characters long').len({ min: 4 });
   // req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
@@ -127,13 +118,13 @@ export let register = (req: Request, res: Response, next: NextFunction) => {
 };
 
 
-export let getUserById = (req: Request, res: Response, next: NextFunction) => {
+export const getUserById = (req: Request, res: Response, next: NextFunction) => {
   User.findById(req.params.userId, (err, user: UserModel) => {
     if (err) { return next(err); }
 
     return res.status(200).json({
       data: user,
-      message: 'user found.'
+      message: 'User found.'
     });
   });
 };

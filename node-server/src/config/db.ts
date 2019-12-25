@@ -4,7 +4,6 @@ import bluebird from 'bluebird';
 import seedDatabase from '../utils/data-seed';
 import { MONGODB_URI } from '../utils/secrets';
 
-
 const connectToDB = () => {
   (<any>mongoose).Promise = bluebird;
 

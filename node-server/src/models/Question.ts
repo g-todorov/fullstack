@@ -1,15 +1,15 @@
 import mongoose from 'mongoose';
 import { IQuestion } from '../interfaces/index';
 
-export type IQuestion = {
-  name: string,
-  type: string,
-  label: string,
-  options: Array<any>;
-  answer: string[],
-  createdBy: string,
-  game: string,
-};
+// export type IQuestion = {
+//   name: string,
+//   type: string,
+//   label: string,
+//   options: Array<any>;
+//   answer: string[],
+//   createdBy: string,
+//   game: string,
+// };
 
 export type QuestionModel = mongoose.Document & IQuestion;
 

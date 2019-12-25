@@ -2,9 +2,9 @@ import _ from 'lodash';
 import passport from 'passport';
 import { default as Question, QuestionModel } from '../models/Question';
 import { Request, Response, NextFunction } from 'express';
-import '../config/passport';
+// import '../config/passport';
 
-export let postQuestion = (req: Request, res: Response, next: NextFunction) => {
+export const postQuestion = (req: Request, res: Response, next: NextFunction) => {
   const question = new Question({
     name: req.body.name,
     type: req.body.type,

@@ -4,16 +4,11 @@ import { IVerifyOptions } from 'passport-local';
 import { WriteError } from 'mongodb';
 import '../config/passport';
 import { emitSessionUpdate } from '../events/sessions';
-const request = require('express-validator');
+// const request = require('express-validator');
 
 import _ from 'lodash';
 import { queue } from 'async';
 
-
-/**
- * POST /session
- * Create session.
- */
 export const postSession = (req: Request, res: Response, next: NextFunction) => {
   const session = new Session({
     status: req.body.status,
