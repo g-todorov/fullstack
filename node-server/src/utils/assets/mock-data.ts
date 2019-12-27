@@ -1,4 +1,5 @@
-import { default as Question, QuestionModel, IQuestion } from '../../models/Question';
+import { IQuestion } from '../../interfaces';
+import { default as Question, QuestionModel } from '../../models/Question';
 import { default as User, UserModel } from '../../models/User';
 import { default as Game, GameModel, IGame } from '../../models/Game';
 import { default as Session, SessionModel, ISession } from '../../models/Session';

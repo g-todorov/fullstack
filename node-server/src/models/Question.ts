@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { IQuestion } from '../interfaces/index';
+import { IQuestion } from '../interfaces';
 
 // export type IQuestion = {
 //   name: string,

@@ -4,7 +4,7 @@ import { Request, Response, NextFunction } from 'express';
 import { IVerifyOptions } from 'passport-local';
 import { WriteError } from 'mongodb';
 // import '../config/passport';
-// const request = require('express-validator');
+const { validationErrors } = require('express-validator/check');
 
 export const postGame = (req: Request, res: Response, next: NextFunction) => {
   req.check('name', 'Name cannot be blank').notEmpty();
