@@ -9,5 +9,9 @@
     "styl",
     "tslib",
     "validators"
-  ]
+  ],
+  "eslint.validate": [
+    "javascript",
+    "typescript"
+  ],
 }

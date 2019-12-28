@@ -1,19 +1,19 @@
 import mongoose from 'mongoose';
 
 export type ISession = {
-  name: string,
-  status: Status,
-  createdBy: string,
-  games: string[],
-  users: string[],
+  name: string;
+  status: Status;
+  createdBy: string;
+  games: string[];
+  users: string[];
 };
 
 export type SessionModel = mongoose.Document & {
-  name: string,
-  status: Status,
-  createdBy: string,
-  games: string[],
-  users: string[],
+  name: string;
+  status: Status;
+  createdBy: string;
+  games: string[];
+  users: string[];
 };
 
 export type Status = 'opened'|'closed'|'running'|'empty';

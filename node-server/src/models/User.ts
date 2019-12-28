@@ -3,32 +3,32 @@ import crypto from 'crypto';
 import mongoose from 'mongoose';
 
 export type UserModel = mongoose.Document & {
-  email: string,
-  password: string,
-  passwordResetToken: string,
-  passwordResetExpires: Date,
-  role: Role,
+  email: string;
+  password: string;
+  passwordResetToken: string;
+  passwordResetExpires: Date;
+  role: Role;
 
-  facebook: string,
-  tokens: AuthToken[],
+  facebook: string;
+  tokens: AuthToken[];
 
   profile: {
-    name: string,
-    gender: string,
-    location: string,
-    website: string,
-    picture: string
-  },
+    name: string;
+    gender: string;
+    location: string;
+    website: string;
+    picture: string;
+  };
 
-  comparePassword: comparePasswordFunction,
-  gravatar: (size: number) => string
+  comparePassword: comparePasswordFunction;
+  gravatar: (size: number) => string;
 };
 
 type comparePasswordFunction = (candidatePassword: string, cb: (err: any, isMatch: any) => {}) => void;
 
 export type AuthToken = {
-  accessToken: string,
-  kind: string
+  accessToken: string;
+  kind: string;
 };
 
 export type Role = 'admin'|'moderator'|'user';
@@ -61,7 +61,7 @@ const userSchema = new mongoose.Schema({
  * Password hash middleware.
  */
 userSchema.pre('save', function save(next) {
-  const user = this;
+  const user = this as UserModel;
   if (!user.isModified('password')) { return next(); }
   bcrypt.genSalt(10, (err, salt) => {
     if (err) { return next(err); }

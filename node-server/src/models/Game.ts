@@ -7,9 +7,9 @@ export interface IGame {
 }
 
 export type GameModel = mongoose.Document & {
-  name: string,
-  type: string,
-  createdBy: string,
+  name: string;
+  type: string;
+  createdBy: string;
 };
 
 const gameSchema = new mongoose.Schema({
