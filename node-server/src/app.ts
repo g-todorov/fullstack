@@ -4,7 +4,6 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import flash from 'express-flash';
 import passport from 'passport';
-import expressValidator from 'express-validator';
 
 import expressSession from './config/express-session';
 import connectToDB from './config/db';
@@ -38,7 +37,6 @@ app.use(cors({
   credentials: true,
   origin: 'http://localhost:4200'
 }));
-app.use(expressValidator());
 app.use(expressSession);
 app.use(passport.initialize());
 app.use(passport.session());

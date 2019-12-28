@@ -4,6 +4,7 @@ import { IVerifyOptions } from 'passport-local';
 import { WriteError } from 'mongodb';
 import '../config/passport';
 import { emitSessionUpdate } from '../events/sessions';
+import { default as User, UserModel, AuthToken } from '../models/User';
 // const request = require('express-validator');
 
 import _ from 'lodash';
@@ -62,7 +63,8 @@ export const updateSession = (req: Request, res: Response, next: NextFunction) =
     session.save((err: any, session: SessionModel) => {
       if (err) { return next(err); }
 
-      emitSessionUpdate(req.user.id, session.users);
+      const user = req.user as UserModel;
+      emitSessionUpdate(user.id, session.users);
       return res.status(201).json({ message: 'Session has been updated.' });
     });
   });

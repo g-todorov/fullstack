@@ -4,7 +4,7 @@ import passportLocal from 'passport-local';
 import _ from 'lodash';
 
 // import { User, UserType } from '../models/User';
-import { default as User } from '../models/User';
+import { default as User, UserModel } from '../models/User';
 import { Request, Response, NextFunction } from 'express';
 
 const LocalStrategy = passportLocal.Strategy;
@@ -137,8 +137,8 @@ export const isAuthenticated = (req: Request, res: Response, next: NextFunction)
  */
 export const isAuthorized = (req: Request, res: Response, next: NextFunction) => {
   const provider = req.path.split('/').slice(-1)[0];
-
-  if (_.find(req.user.tokens, { kind: provider })) {
+  const user = req.user as UserModel;
+  if (_.find(user.tokens, { kind: provider })) {
     next();
   } else {
     res.redirect(`/auth/${provider}`);

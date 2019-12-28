@@ -4,14 +4,14 @@ import { Request, Response, NextFunction } from 'express';
 import { IVerifyOptions } from 'passport-local';
 import { WriteError } from 'mongodb';
 // import '../config/passport';
-// const { validationErrors } = require('express-validator/check');
+import { check, validationResult } from 'express-validator';
 
-export const postGame = (req: Request, res: Response, next: NextFunction) => {
-  req.check('name', 'Name cannot be blank').notEmpty();
-  req.check('type', 'Type cannot be blank').notEmpty();
-  req.check('createdBy', 'CreatedBy cannot be blank').notEmpty();
+export const postGame = async (req: Request, res: Response, next: NextFunction) => {
+  await check('name', 'Name cannot be blank').notEmpty().run(req);
+  await check('type', 'Type cannot be blank').notEmpty().run(req);
+  await check('createdBy', 'CreatedBy cannot be blank').notEmpty().run(req);
 
-  const errors = req.validationErrors();
+  const errors = validationResult(req);
 
   if (errors) {
     return res.status(400).json({

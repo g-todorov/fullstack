@@ -7,12 +7,12 @@ import { Request, Response, NextFunction } from 'express';
 import { IVerifyOptions } from 'passport-local';
 import { WriteError } from 'mongodb';
 import '../config/passport';
-// const request = require('express-validator');
+import { check, sanitize, validationResult } from 'express-validator';
 
 import _ from 'lodash';
 
 export const getAuthenticatedUser = (req: Request, res: Response, next: NextFunction) => {
-  const { email, id, role } = req.user;
+  const { email, id, role } = req.user as UserModel;
 
   return res.status(200).json({
     message: 'User is authenticated.',
@@ -27,12 +27,13 @@ export const getAuthenticatedUser = (req: Request, res: Response, next: NextFunc
   });
 };
 
-export const login = (req: Request, res: Response, next: NextFunction) => {
-  req.check('email', 'Email is not valid').isEmail();
-  req.check('password', 'Password cannot be blank').notEmpty();
-  req.sanitize('email').normalizeEmail({ gmail_remove_dots: false });
+export const login = async (req: Request, res: Response, next: NextFunction) => {
+  await check('email', 'Email is not valid').isEmail().run(req);
+  await check('password', 'Password cannot be blank').notEmpty().run(req);
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  await sanitize('email').normalizeEmail({ gmail_remove_dots: false }).run(req);
 
-  const errors = req.validationErrors();
+  const errors = validationResult(req);
 
   if (errors) {
     return res.status(400).json({
@@ -76,13 +77,14 @@ export const logout = (req: Request, res: Response, next: NextFunction) => {
   });
 };
 
-export const register = (req: Request, res: Response, next: NextFunction) => {
-  req.assert('email', 'Email is not valid').isEmail();
-  req.assert('password', 'Password must be at least 4 characters long').len({ min: 4 });
+export const register = async (req: Request, res: Response, next: NextFunction) => {
+  await check('email', 'Email is not valid').isEmail().run(req);
+  await check('password', 'Password must be at least 4 characters long').isLength({ min: 4 }).run(req);
   // req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
-  req.sanitize('email').normalizeEmail({ gmail_remove_dots: false });
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  await sanitize('email').normalizeEmail({ gmail_remove_dots: false }).run(req);
 
-  const errors = req.validationErrors();
+  const errors = validationResult(req);
 
   if (errors) {
     return res.status(400).json({
