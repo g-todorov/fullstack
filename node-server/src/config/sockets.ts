@@ -17,12 +17,13 @@ export const mountSockets = (httpServer: Server) => {
 
   ioInstance.on('connect', (socketInstance: any) => {
     const passportAuthentication = socketInstance.request.session.passport;
-
+    
     // TODO this should be further investigated;
     // const isAlreadyConnected: boolean = connectedSocketUsers[passportAuthentication.user];
-
+    
     if (passportAuthentication) {
       connectedSocketUsers[passportAuthentication.user] = socketInstance;
+      console.log(`ioInstance.on(connect) ${passportAuthentication.user}`);
     }
 
     // TODO mount all listeners on instantiation

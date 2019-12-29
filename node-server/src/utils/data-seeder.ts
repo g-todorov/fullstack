@@ -5,7 +5,7 @@ import { default as Session, SessionModel } from '../models/Session';
 import mongoose from 'mongoose';
 import { Document } from 'mongoose';
 
-import { mockedUsers, mockedGames, mockedQuestions, mockedSessions, admin } from './assets/mock-data';
+import { mockedUsers, mockedGames, mockedQuestions, mockedSessions } from './assets/mock-data';
 
 import * as constants from './constants';
 
@@ -23,8 +23,12 @@ const seedDatabase = async () => {
     }
   }
 
-  const adminUser = existingUsers.find((user: UserModel) => {
-    return user.role === constants.ADMIN_ROLE;
+  const adminUser1 = existingUsers.find((user: UserModel) => {
+    return user.role === constants.ADMIN_ROLE && user.email === constants.ADMIN1_EMAIL;
+  });
+
+  const adminUser2 = existingUsers.find((user: UserModel) => {
+    return user.role === constants.ADMIN_ROLE && user.email === constants.ADMIN2_EMAIL;
   });
 
   const simpleUser1 = existingUsers.find((user: UserModel) => {
@@ -40,7 +44,7 @@ const seedDatabase = async () => {
 
   if (existingGames.length === 0) {
     for (const game of mockedGames) {
-      game.createdBy = adminUser.id;
+      game.createdBy = adminUser1.id;
       const savedGame = await new Game(game).save();
 
       existingGames.push(savedGame);
@@ -56,7 +60,7 @@ const seedDatabase = async () => {
 
   if (existingQuestions.length === 0) {
     for (const question of mockedQuestions) {
-      question.createdBy = adminUser.id;
+      question.createdBy = adminUser1.id;
       question.game = adminGame.id;
       const savedQuestion = await new Question(question).save();
 
@@ -68,11 +72,11 @@ const seedDatabase = async () => {
   const existingSessions = await Session.find({}).exec();
 
   if (existingSessions.length === 0) {
-    mockedSessions[0].createdBy = adminUser.id;
+    mockedSessions[0].createdBy = adminUser1.id;
     mockedSessions[0].games = [adminGame.id];
     mockedSessions[0].users = [simpleUser1.id];
 
-    mockedSessions[1].createdBy = adminUser.id;
+    mockedSessions[1].createdBy = adminUser1.id;
     mockedSessions[1].games = [adminGame.id];
     mockedSessions[1].users = [simpleUser1.id, simpleUser2.id];
 

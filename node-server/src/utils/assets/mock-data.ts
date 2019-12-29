@@ -6,8 +6,14 @@ import { default as Session, SessionModel, ISession } from '../../models/Session
 
 import * as constants from '../constants';
 
-export const admin = new User({
-  email: constants.ADMIN_EMAIL,
+export const admin1 = new User({
+  email: constants.ADMIN1_EMAIL,
+  password: constants.USER_PASS,
+  role: constants.ADMIN_ROLE,
+});
+
+export const admin2 = new User({
+  email: constants.ADMIN2_EMAIL,
   password: constants.USER_PASS,
   role: constants.ADMIN_ROLE,
 });
@@ -31,7 +37,8 @@ export const user2 = new User({
 });
 
 export const mockedUsers = [
-  admin,
+  admin1,
+  admin2,
   moderator,
   user1,
   user2,
@@ -56,7 +63,7 @@ const question1: IQuestion = {
       label: 'Mbappe',
       value: 'mbappe',
     }
-  ,
+    ,
     {
       label: 'Rashford',
       value: 'rashford',
@@ -76,7 +83,7 @@ const question2: IQuestion = {
       label: 'Real Madrid',
       value: 'realMadrid',
     }
-  ,
+    ,
     {
       label: 'Manchester United',
       value: 'manchesterUnited',
